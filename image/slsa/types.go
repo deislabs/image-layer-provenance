@@ -6,7 +6,7 @@ package slsa
 import (
 	"time"
 
-	"github.com/johnsonshi/image-manifest-layer-history/pkg/image/history"
+	"github.com/johnsonshi/image-manifest-layer-history/image/history"
 )
 
 type ImageManifestLayerSlsaProvenance struct {

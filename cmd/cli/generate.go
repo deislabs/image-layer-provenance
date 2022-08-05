@@ -16,9 +16,9 @@ import (
 	intoto "github.com/in-toto/in-toto-golang/in_toto"
 	"github.com/spf13/cobra"
 
-	"github.com/johnsonshi/image-manifest-layer-history/pkg/image/client"
-	"github.com/johnsonshi/image-manifest-layer-history/pkg/image/history"
-	imagehistoryslsa "github.com/johnsonshi/image-manifest-layer-history/pkg/image/history/slsa"
+	"github.com/johnsonshi/image-manifest-layer-history/image/client"
+	"github.com/johnsonshi/image-manifest-layer-history/image/history"
+	"github.com/johnsonshi/image-manifest-layer-history/image/slsa"
 )
 
 type generateCmdOpts struct {
@@ -152,7 +152,7 @@ func (opts *generateCmdOpts) writeManifestLayerHistory(manifestLayerHistory []hi
 		var imageSlsaProvenanceStatements []*intoto.ProvenanceStatement
 		timeNow := time.Now()
 		for _, layerHistory := range manifestLayerHistory {
-			layerSlsaProvenance := imagehistoryslsa.ImageManifestLayerSlsaProvenance{
+			layerSlsaProvenance := slsa.ImageManifestLayerSlsaProvenance{
 				LayerHistory:                layerHistory,
 				BuilderID:                   "URI indicating the builder identity. E.g. pipeline-name",
 				BuildType:                   "URI indicating what type of build was performed. E.g. build-type-dockerfile-build",
