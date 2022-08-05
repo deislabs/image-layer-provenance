@@ -1,0 +1,103 @@
+[
+  {
+    "LayerDigest": "sha256:1a85f3508e3cb242467d756a81bbd7e3f3ee1513cdc4271368c131b5b86b74d9",
+    "LayerCreationType": "ADD-CommandLayer",
+    "DockerfileCommands": [
+      "ADD https://github.com/kubernetes/client-go/archive/master.tar.gz /kubernetes/client-go.tar.gz"
+    ],
+    "BaseImage": "",
+    "AttributionAnnotations": {
+      "responsible_entity_id": "ID of the responsible entity that introduced non-base image layers. i.e. Entity ID of the Dockerfile Author. This denotes responsible entity for the new layers added on top of base image layers."
+    }
+  },
+  {
+    "LayerDigest": "sha256:f0007634565752c57366439569258a233a2e5a8c209dd29d9df9d7daaf161c2e",
+    "LayerCreationType": "COPY-FromMultistageBuildStageLayer",
+    "DockerfileCommands": [
+      "FROM docker.io/library/node:18-bullseye",
+      "RUN echo \"builder1Foo\" \u003e /builder1Foo.txt",
+      "EXPOSE 8080/tcp",
+      "EXPOSE 8080/udp",
+      "ENV NODE_ENV_1=\"node_env_val_1\"",
+      "RUN echo \"builder1Bar\" \u003e /builder1Bar.txt",
+      "COPY --from=0 /builder1Foo.txt /builder1Foo.txt"
+    ],
+    "BaseImage": "docker.io/library/node:18-bullseye",
+    "AttributionAnnotations": {
+      "responsible_entity_id": "ID of the responsible entity that introduced non-base image layers. i.e. Entity ID of the Dockerfile Author. This denotes responsible entity for the new layers added on top of base image layers."
+    }
+  },
+  {
+    "LayerDigest": "sha256:cd4ff04d69027152cbc7914eb582b3d04bb3a51e744a4d7ff3e86683f47e73a5",
+    "LayerCreationType": "COPY-FromMultistageBuildStageLayer",
+    "DockerfileCommands": [
+      "FROM docker.io/library/node:18-bullseye",
+      "RUN echo \"builder1Foo\" \u003e /builder1Foo.txt",
+      "EXPOSE 8080/tcp",
+      "EXPOSE 8080/udp",
+      "ENV NODE_ENV_1=\"node_env_val_1\"",
+      "RUN echo \"builder1Bar\" \u003e /builder1Bar.txt",
+      "COPY --from=0 /builder1Bar.txt /builder1Bar.txt"
+    ],
+    "BaseImage": "docker.io/library/node:18-bullseye",
+    "AttributionAnnotations": {
+      "responsible_entity_id": "ID of the responsible entity that introduced non-base image layers. i.e. Entity ID of the Dockerfile Author. This denotes responsible entity for the new layers added on top of base image layers."
+    }
+  },
+  {
+    "LayerDigest": "sha256:f72157d3fb883ef6636c9714070ea7d7fe620f5c36b593f3a845a78e83bfd63d",
+    "LayerCreationType": "ADD-CommandLayer",
+    "DockerfileCommands": [
+      "ADD https://github.com/kubernetes/kubectl/archive/master.tar.gz /kubernetes/kubectl.tar.gz"
+    ],
+    "BaseImage": "",
+    "AttributionAnnotations": {
+      "responsible_entity_id": "ID of the responsible entity that introduced non-base image layers. i.e. Entity ID of the Dockerfile Author. This denotes responsible entity for the new layers added on top of base image layers."
+    }
+  },
+  {
+    "LayerDigest": "sha256:50b974a802e3f9089177263e1024a0f253949993d95bdfba97d923fc0b111a22",
+    "LayerCreationType": "COPY-FromMultistageBuildStageLayer",
+    "DockerfileCommands": [
+      "FROM docker.io/library/python:3-bullseye as builder2",
+      "RUN echo \"builder2Foo\" \u003e /builder2Foo.txt",
+      "EXPOSE 5000/tcp",
+      "EXPOSE 5000/udp",
+      "ENV PYTHON_ENV_1=\"python_env_val_1\"",
+      "RUN echo \"builder2Bar\" \u003e /builder2Bar.txt",
+      "COPY --from=builder2 /builder2Foo.txt /builder2Foo.txt"
+    ],
+    "BaseImage": "docker.io/library/python:3-bullseye",
+    "AttributionAnnotations": {
+      "responsible_entity_id": "ID of the responsible entity that introduced non-base image layers. i.e. Entity ID of the Dockerfile Author. This denotes responsible entity for the new layers added on top of base image layers."
+    }
+  },
+  {
+    "LayerDigest": "sha256:ba0717e37a630bab618640293d5ac7b9a6b4d0dc8b2be241fedf329311e8a11d",
+    "LayerCreationType": "COPY-FromMultistageBuildStageLayer",
+    "DockerfileCommands": [
+      "FROM docker.io/library/python:3-bullseye as builder2",
+      "RUN echo \"builder2Foo\" \u003e /builder2Foo.txt",
+      "EXPOSE 5000/tcp",
+      "EXPOSE 5000/udp",
+      "ENV PYTHON_ENV_1=\"python_env_val_1\"",
+      "RUN echo \"builder2Bar\" \u003e /builder2Bar.txt",
+      "COPY --from=builder2 /builder2Bar.txt /builder2Bar.txt"
+    ],
+    "BaseImage": "docker.io/library/python:3-bullseye",
+    "AttributionAnnotations": {
+      "responsible_entity_id": "ID of the responsible entity that introduced non-base image layers. i.e. Entity ID of the Dockerfile Author. This denotes responsible entity for the new layers added on top of base image layers."
+    }
+  },
+  {
+    "LayerDigest": "sha256:7e3c744a1b55d0735f5fb0778f94f583e98bc5ac5861f5f168d8678fd1e8607d",
+    "LayerCreationType": "ADD-CommandLayer",
+    "DockerfileCommands": [
+      "ADD https://github.com/kubernetes/dashboard/archive/master.tar.gz /kubernetes/dashboard.tar.gz"
+    ],
+    "BaseImage": "",
+    "AttributionAnnotations": {
+      "responsible_entity_id": "ID of the responsible entity that introduced non-base image layers. i.e. Entity ID of the Dockerfile Author. This denotes responsible entity for the new layers added on top of base image layers."
+    }
+  }
+]

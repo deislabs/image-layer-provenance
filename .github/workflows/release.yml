@@ -1,0 +1,42 @@
+name: Release
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  version:
+    name: Set Version from git ref
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+    steps:
+      - id: version
+        run: echo "::set-output name=version::$(sed 's#^refs/tags/\(.*\)#\1#' <<< '${{ github.ref }}')"
+
+  binaries:
+    name: Binaries
+    runs-on: ubuntu-latest
+    needs: version
+    env:
+      VERSION: ${{ needs.version.outputs.version }}
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-go@v3
+        with:
+          go-version: '^1.18.0'
+      - run: go version
+
+      - name: Build CLI
+        run: make build-cli
+
+      - name: Create Release
+        id: create_release
+        uses: ncipollo/release-action@v1
+        with:
+          tag: ${{ env.VERSION }}
+          name: ${{ env.VERSION }}
+          generateReleaseNotes: true
+          prerelease: ${{ contains(env.VERSION, '-alpha.') || contains(env.VERSION, '-beta.') || contains(env.VERSION, '-rc.') || contains(env.VERSION, '-nightly.') }}
+          artifacts: "bin/*"

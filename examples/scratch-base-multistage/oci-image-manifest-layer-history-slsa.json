@@ -1,0 +1,775 @@
+[
+  {
+    "_type": "https://in-toto.io/Statement/v0.1",
+    "predicateType": "https://slsa.dev/provenance/v0.2",
+    "subject": [
+      {
+        "name": "sha256:1a85f3508e3cb242467d756a81bbd7e3f3ee1513cdc4271368c131b5b86b74d9",
+        "digest": {
+          "sha256": "1a85f3508e3cb242467d756a81bbd7e3f3ee1513cdc4271368c131b5b86b74d9"
+        }
+      }
+    ],
+    "predicate": {
+      "builder": {
+        "id": "URI indicating the builder identity. E.g. pipeline-name"
+      },
+      "buildType": "URI indicating what type of build was performed. E.g. build-type-dockerfile-build",
+      "invocation": {
+        "configSource": {
+          "uri": "URI to Git repo of Dockerfile. Describes where the config file that kicked off the build came from. URI indicating the identity of the source of the config. E.g. https://www.github.com/example/reponame/blob/master/Dockerfile",
+          "digest": {
+            "commit": "Git commit SHA that kicked off the build."
+          },
+          "entryPoint": "Path to Dockerfile in the repo. Definition: String identifying the entry point into the build. This is often a path to a configuration file and/or a target label within that file. The syntax and meaning are defined by buildType. For example, if the buildType were “make”, then this would reference the directory in which to run make as well as which target to use."
+        },
+        "parameters": {
+          "LayerHistory": {
+            "LayerDescriptor": {
+              "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+              "digest": "sha256:1a85f3508e3cb242467d756a81bbd7e3f3ee1513cdc4271368c131b5b86b74d9",
+              "size": 1078285
+            },
+            "LayerCreationType": "ADD-CommandLayer",
+            "DockerfileCommands": [
+              {
+                "Cmd": "ADD",
+                "SubCmd": "",
+                "Json": false,
+                "Original": "ADD https://github.com/kubernetes/client-go/archive/master.tar.gz /kubernetes/client-go.tar.gz",
+                "StartLine": 32,
+                "EndLine": 32,
+                "Flags": [],
+                "Value": [
+                  "https://github.com/kubernetes/client-go/archive/master.tar.gz",
+                  "/kubernetes/client-go.tar.gz"
+                ]
+              }
+            ],
+            "BaseImage": "",
+            "AttributionAnnotations": {
+              "responsible_entity_id": "ID of the responsible entity that introduced non-base image layers. i.e. Entity ID of the Dockerfile Author. This denotes responsible entity for the new layers added on top of base image layers."
+            }
+          }
+        }
+      },
+      "metadata": {
+        "buildInvocationID": "Globally Unique Build Invocation ID. Definition: Identifies this particular build invocation, which can be useful for finding associated logs or other ad-hoc analysis. The exact meaning and format is defined by builder.id; by default it is treated as opaque and case-sensitive. The value SHOULD be globally unique.",
+        "buildStartedOn": "2022-08-05T11:09:03.760788817-07:00",
+        "buildFinishedOn": "2022-08-05T11:09:03.760788817-07:00",
+        "completeness": {
+          "parameters": false,
+          "environment": false,
+          "materials": false
+        },
+        "reproducible": false
+      }
+    }
+  },
+  {
+    "_type": "https://in-toto.io/Statement/v0.1",
+    "predicateType": "https://slsa.dev/provenance/v0.2",
+    "subject": [
+      {
+        "name": "sha256:f0007634565752c57366439569258a233a2e5a8c209dd29d9df9d7daaf161c2e",
+        "digest": {
+          "sha256": "f0007634565752c57366439569258a233a2e5a8c209dd29d9df9d7daaf161c2e"
+        }
+      }
+    ],
+    "predicate": {
+      "builder": {
+        "id": "URI indicating the builder identity. E.g. pipeline-name"
+      },
+      "buildType": "URI indicating what type of build was performed. E.g. build-type-dockerfile-build",
+      "invocation": {
+        "configSource": {
+          "uri": "URI to Git repo of Dockerfile. Describes where the config file that kicked off the build came from. URI indicating the identity of the source of the config. E.g. https://www.github.com/example/reponame/blob/master/Dockerfile",
+          "digest": {
+            "commit": "Git commit SHA that kicked off the build."
+          },
+          "entryPoint": "Path to Dockerfile in the repo. Definition: String identifying the entry point into the build. This is often a path to a configuration file and/or a target label within that file. The syntax and meaning are defined by buildType. For example, if the buildType were “make”, then this would reference the directory in which to run make as well as which target to use."
+        },
+        "parameters": {
+          "LayerHistory": {
+            "LayerDescriptor": {
+              "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+              "digest": "sha256:f0007634565752c57366439569258a233a2e5a8c209dd29d9df9d7daaf161c2e",
+              "size": 115
+            },
+            "LayerCreationType": "COPY-FromMultistageBuildStageLayer",
+            "DockerfileCommands": [
+              {
+                "Cmd": "FROM",
+                "SubCmd": "",
+                "Json": false,
+                "Original": "FROM docker.io/library/node:18-bullseye",
+                "StartLine": 4,
+                "EndLine": 4,
+                "Flags": [],
+                "Value": [
+                  "docker.io/library/node:18-bullseye"
+                ]
+              },
+              {
+                "Cmd": "RUN",
+                "SubCmd": "",
+                "Json": false,
+                "Original": "RUN echo \"builder1Foo\" \u003e /builder1Foo.txt",
+                "StartLine": 6,
+                "EndLine": 6,
+                "Flags": [],
+                "Value": [
+                  "echo \"builder1Foo\" \u003e /builder1Foo.txt"
+                ]
+              },
+              {
+                "Cmd": "EXPOSE",
+                "SubCmd": "",
+                "Json": false,
+                "Original": "EXPOSE 8080/tcp",
+                "StartLine": 8,
+                "EndLine": 8,
+                "Flags": [],
+                "Value": [
+                  "8080/tcp"
+                ]
+              },
+              {
+                "Cmd": "EXPOSE",
+                "SubCmd": "",
+                "Json": false,
+                "Original": "EXPOSE 8080/udp",
+                "StartLine": 9,
+                "EndLine": 9,
+                "Flags": [],
+                "Value": [
+                  "8080/udp"
+                ]
+              },
+              {
+                "Cmd": "ENV",
+                "SubCmd": "",
+                "Json": false,
+                "Original": "ENV NODE_ENV_1=\"node_env_val_1\"",
+                "StartLine": 10,
+                "EndLine": 10,
+                "Flags": [],
+                "Value": [
+                  "NODE_ENV_1",
+                  "\"node_env_val_1\""
+                ]
+              },
+              {
+                "Cmd": "RUN",
+                "SubCmd": "",
+                "Json": false,
+                "Original": "RUN echo \"builder1Bar\" \u003e /builder1Bar.txt",
+                "StartLine": 12,
+                "EndLine": 12,
+                "Flags": [],
+                "Value": [
+                  "echo \"builder1Bar\" \u003e /builder1Bar.txt"
+                ]
+              },
+              {
+                "Cmd": "COPY",
+                "SubCmd": "",
+                "Json": false,
+                "Original": "COPY --from=0 /builder1Foo.txt /builder1Foo.txt",
+                "StartLine": 39,
+                "EndLine": 39,
+                "Flags": [
+                  "--from=0"
+                ],
+                "Value": [
+                  "/builder1Foo.txt",
+                  "/builder1Foo.txt"
+                ]
+              }
+            ],
+            "BaseImage": "docker.io/library/node:18-bullseye",
+            "AttributionAnnotations": {
+              "responsible_entity_id": "ID of the responsible entity that introduced non-base image layers. i.e. Entity ID of the Dockerfile Author. This denotes responsible entity for the new layers added on top of base image layers."
+            }
+          }
+        }
+      },
+      "metadata": {
+        "buildInvocationID": "Globally Unique Build Invocation ID. Definition: Identifies this particular build invocation, which can be useful for finding associated logs or other ad-hoc analysis. The exact meaning and format is defined by builder.id; by default it is treated as opaque and case-sensitive. The value SHOULD be globally unique.",
+        "buildStartedOn": "2022-08-05T11:09:03.760788817-07:00",
+        "buildFinishedOn": "2022-08-05T11:09:03.760788817-07:00",
+        "completeness": {
+          "parameters": false,
+          "environment": false,
+          "materials": false
+        },
+        "reproducible": false
+      }
+    }
+  },
+  {
+    "_type": "https://in-toto.io/Statement/v0.1",
+    "predicateType": "https://slsa.dev/provenance/v0.2",
+    "subject": [
+      {
+        "name": "sha256:cd4ff04d69027152cbc7914eb582b3d04bb3a51e744a4d7ff3e86683f47e73a5",
+        "digest": {
+          "sha256": "cd4ff04d69027152cbc7914eb582b3d04bb3a51e744a4d7ff3e86683f47e73a5"
+        }
+      }
+    ],
+    "predicate": {
+      "builder": {
+        "id": "URI indicating the builder identity. E.g. pipeline-name"
+      },
+      "buildType": "URI indicating what type of build was performed. E.g. build-type-dockerfile-build",
+      "invocation": {
+        "configSource": {
+          "uri": "URI to Git repo of Dockerfile. Describes where the config file that kicked off the build came from. URI indicating the identity of the source of the config. E.g. https://www.github.com/example/reponame/blob/master/Dockerfile",
+          "digest": {
+            "commit": "Git commit SHA that kicked off the build."
+          },
+          "entryPoint": "Path to Dockerfile in the repo. Definition: String identifying the entry point into the build. This is often a path to a configuration file and/or a target label within that file. The syntax and meaning are defined by buildType. For example, if the buildType were “make”, then this would reference the directory in which to run make as well as which target to use."
+        },
+        "parameters": {
+          "LayerHistory": {
+            "LayerDescriptor": {
+              "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+              "digest": "sha256:cd4ff04d69027152cbc7914eb582b3d04bb3a51e744a4d7ff3e86683f47e73a5",
+              "size": 115
+            },
+            "LayerCreationType": "COPY-FromMultistageBuildStageLayer",
+            "DockerfileCommands": [
+              {
+                "Cmd": "FROM",
+                "SubCmd": "",
+                "Json": false,
+                "Original": "FROM docker.io/library/node:18-bullseye",
+                "StartLine": 4,
+                "EndLine": 4,
+                "Flags": [],
+                "Value": [
+                  "docker.io/library/node:18-bullseye"
+                ]
+              },
+              {
+                "Cmd": "RUN",
+                "SubCmd": "",
+                "Json": false,
+                "Original": "RUN echo \"builder1Foo\" \u003e /builder1Foo.txt",
+                "StartLine": 6,
+                "EndLine": 6,
+                "Flags": [],
+                "Value": [
+                  "echo \"builder1Foo\" \u003e /builder1Foo.txt"
+                ]
+              },
+              {
+                "Cmd": "EXPOSE",
+                "SubCmd": "",
+                "Json": false,
+                "Original": "EXPOSE 8080/tcp",
+                "StartLine": 8,
+                "EndLine": 8,
+                "Flags": [],
+                "Value": [
+                  "8080/tcp"
+                ]
+              },
+              {
+                "Cmd": "EXPOSE",
+                "SubCmd": "",
+                "Json": false,
+                "Original": "EXPOSE 8080/udp",
+                "StartLine": 9,
+                "EndLine": 9,
+                "Flags": [],
+                "Value": [
+                  "8080/udp"
+                ]
+              },
+              {
+                "Cmd": "ENV",
+                "SubCmd": "",
+                "Json": false,
+                "Original": "ENV NODE_ENV_1=\"node_env_val_1\"",
+                "StartLine": 10,
+                "EndLine": 10,
+                "Flags": [],
+                "Value": [
+                  "NODE_ENV_1",
+                  "\"node_env_val_1\""
+                ]
+              },
+              {
+                "Cmd": "RUN",
+                "SubCmd": "",
+                "Json": false,
+                "Original": "RUN echo \"builder1Bar\" \u003e /builder1Bar.txt",
+                "StartLine": 12,
+                "EndLine": 12,
+                "Flags": [],
+                "Value": [
+                  "echo \"builder1Bar\" \u003e /builder1Bar.txt"
+                ]
+              },
+              {
+                "Cmd": "COPY",
+                "SubCmd": "",
+                "Json": false,
+                "Original": "COPY --from=0 /builder1Bar.txt /builder1Bar.txt",
+                "StartLine": 40,
+                "EndLine": 40,
+                "Flags": [
+                  "--from=0"
+                ],
+                "Value": [
+                  "/builder1Bar.txt",
+                  "/builder1Bar.txt"
+                ]
+              }
+            ],
+            "BaseImage": "docker.io/library/node:18-bullseye",
+            "AttributionAnnotations": {
+              "responsible_entity_id": "ID of the responsible entity that introduced non-base image layers. i.e. Entity ID of the Dockerfile Author. This denotes responsible entity for the new layers added on top of base image layers."
+            }
+          }
+        }
+      },
+      "metadata": {
+        "buildInvocationID": "Globally Unique Build Invocation ID. Definition: Identifies this particular build invocation, which can be useful for finding associated logs or other ad-hoc analysis. The exact meaning and format is defined by builder.id; by default it is treated as opaque and case-sensitive. The value SHOULD be globally unique.",
+        "buildStartedOn": "2022-08-05T11:09:03.760788817-07:00",
+        "buildFinishedOn": "2022-08-05T11:09:03.760788817-07:00",
+        "completeness": {
+          "parameters": false,
+          "environment": false,
+          "materials": false
+        },
+        "reproducible": false
+      }
+    }
+  },
+  {
+    "_type": "https://in-toto.io/Statement/v0.1",
+    "predicateType": "https://slsa.dev/provenance/v0.2",
+    "subject": [
+      {
+        "name": "sha256:f72157d3fb883ef6636c9714070ea7d7fe620f5c36b593f3a845a78e83bfd63d",
+        "digest": {
+          "sha256": "f72157d3fb883ef6636c9714070ea7d7fe620f5c36b593f3a845a78e83bfd63d"
+        }
+      }
+    ],
+    "predicate": {
+      "builder": {
+        "id": "URI indicating the builder identity. E.g. pipeline-name"
+      },
+      "buildType": "URI indicating what type of build was performed. E.g. build-type-dockerfile-build",
+      "invocation": {
+        "configSource": {
+          "uri": "URI to Git repo of Dockerfile. Describes where the config file that kicked off the build came from. URI indicating the identity of the source of the config. E.g. https://www.github.com/example/reponame/blob/master/Dockerfile",
+          "digest": {
+            "commit": "Git commit SHA that kicked off the build."
+          },
+          "entryPoint": "Path to Dockerfile in the repo. Definition: String identifying the entry point into the build. This is often a path to a configuration file and/or a target label within that file. The syntax and meaning are defined by buildType. For example, if the buildType were “make”, then this would reference the directory in which to run make as well as which target to use."
+        },
+        "parameters": {
+          "LayerHistory": {
+            "LayerDescriptor": {
+              "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+              "digest": "sha256:f72157d3fb883ef6636c9714070ea7d7fe620f5c36b593f3a845a78e83bfd63d",
+              "size": 2722633
+            },
+            "LayerCreationType": "ADD-CommandLayer",
+            "DockerfileCommands": [
+              {
+                "Cmd": "ADD",
+                "SubCmd": "",
+                "Json": false,
+                "Original": "ADD https://github.com/kubernetes/kubectl/archive/master.tar.gz /kubernetes/kubectl.tar.gz",
+                "StartLine": 41,
+                "EndLine": 41,
+                "Flags": [],
+                "Value": [
+                  "https://github.com/kubernetes/kubectl/archive/master.tar.gz",
+                  "/kubernetes/kubectl.tar.gz"
+                ]
+              }
+            ],
+            "BaseImage": "",
+            "AttributionAnnotations": {
+              "responsible_entity_id": "ID of the responsible entity that introduced non-base image layers. i.e. Entity ID of the Dockerfile Author. This denotes responsible entity for the new layers added on top of base image layers."
+            }
+          }
+        }
+      },
+      "metadata": {
+        "buildInvocationID": "Globally Unique Build Invocation ID. Definition: Identifies this particular build invocation, which can be useful for finding associated logs or other ad-hoc analysis. The exact meaning and format is defined by builder.id; by default it is treated as opaque and case-sensitive. The value SHOULD be globally unique.",
+        "buildStartedOn": "2022-08-05T11:09:03.760788817-07:00",
+        "buildFinishedOn": "2022-08-05T11:09:03.760788817-07:00",
+        "completeness": {
+          "parameters": false,
+          "environment": false,
+          "materials": false
+        },
+        "reproducible": false
+      }
+    }
+  },
+  {
+    "_type": "https://in-toto.io/Statement/v0.1",
+    "predicateType": "https://slsa.dev/provenance/v0.2",
+    "subject": [
+      {
+        "name": "sha256:50b974a802e3f9089177263e1024a0f253949993d95bdfba97d923fc0b111a22",
+        "digest": {
+          "sha256": "50b974a802e3f9089177263e1024a0f253949993d95bdfba97d923fc0b111a22"
+        }
+      }
+    ],
+    "predicate": {
+      "builder": {
+        "id": "URI indicating the builder identity. E.g. pipeline-name"
+      },
+      "buildType": "URI indicating what type of build was performed. E.g. build-type-dockerfile-build",
+      "invocation": {
+        "configSource": {
+          "uri": "URI to Git repo of Dockerfile. Describes where the config file that kicked off the build came from. URI indicating the identity of the source of the config. E.g. https://www.github.com/example/reponame/blob/master/Dockerfile",
+          "digest": {
+            "commit": "Git commit SHA that kicked off the build."
+          },
+          "entryPoint": "Path to Dockerfile in the repo. Definition: String identifying the entry point into the build. This is often a path to a configuration file and/or a target label within that file. The syntax and meaning are defined by buildType. For example, if the buildType were “make”, then this would reference the directory in which to run make as well as which target to use."
+        },
+        "parameters": {
+          "LayerHistory": {
+            "LayerDescriptor": {
+              "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+              "digest": "sha256:50b974a802e3f9089177263e1024a0f253949993d95bdfba97d923fc0b111a22",
+              "size": 115
+            },
+            "LayerCreationType": "COPY-FromMultistageBuildStageLayer",
+            "DockerfileCommands": [
+              {
+                "Cmd": "FROM",
+                "SubCmd": "",
+                "Json": false,
+                "Original": "FROM docker.io/library/python:3-bullseye as builder2",
+                "StartLine": 17,
+                "EndLine": 17,
+                "Flags": [],
+                "Value": [
+                  "docker.io/library/python:3-bullseye",
+                  "as",
+                  "builder2"
+                ]
+              },
+              {
+                "Cmd": "RUN",
+                "SubCmd": "",
+                "Json": false,
+                "Original": "RUN echo \"builder2Foo\" \u003e /builder2Foo.txt",
+                "StartLine": 19,
+                "EndLine": 19,
+                "Flags": [],
+                "Value": [
+                  "echo \"builder2Foo\" \u003e /builder2Foo.txt"
+                ]
+              },
+              {
+                "Cmd": "EXPOSE",
+                "SubCmd": "",
+                "Json": false,
+                "Original": "EXPOSE 5000/tcp",
+                "StartLine": 21,
+                "EndLine": 21,
+                "Flags": [],
+                "Value": [
+                  "5000/tcp"
+                ]
+              },
+              {
+                "Cmd": "EXPOSE",
+                "SubCmd": "",
+                "Json": false,
+                "Original": "EXPOSE 5000/udp",
+                "StartLine": 22,
+                "EndLine": 22,
+                "Flags": [],
+                "Value": [
+                  "5000/udp"
+                ]
+              },
+              {
+                "Cmd": "ENV",
+                "SubCmd": "",
+                "Json": false,
+                "Original": "ENV PYTHON_ENV_1=\"python_env_val_1\"",
+                "StartLine": 23,
+                "EndLine": 23,
+                "Flags": [],
+                "Value": [
+                  "PYTHON_ENV_1",
+                  "\"python_env_val_1\""
+                ]
+              },
+              {
+                "Cmd": "RUN",
+                "SubCmd": "",
+                "Json": false,
+                "Original": "RUN echo \"builder2Bar\" \u003e /builder2Bar.txt",
+                "StartLine": 25,
+                "EndLine": 25,
+                "Flags": [],
+                "Value": [
+                  "echo \"builder2Bar\" \u003e /builder2Bar.txt"
+                ]
+              },
+              {
+                "Cmd": "COPY",
+                "SubCmd": "",
+                "Json": false,
+                "Original": "COPY --from=builder2 /builder2Foo.txt /builder2Foo.txt",
+                "StartLine": 47,
+                "EndLine": 47,
+                "Flags": [
+                  "--from=builder2"
+                ],
+                "Value": [
+                  "/builder2Foo.txt",
+                  "/builder2Foo.txt"
+                ]
+              }
+            ],
+            "BaseImage": "docker.io/library/python:3-bullseye",
+            "AttributionAnnotations": {
+              "responsible_entity_id": "ID of the responsible entity that introduced non-base image layers. i.e. Entity ID of the Dockerfile Author. This denotes responsible entity for the new layers added on top of base image layers."
+            }
+          }
+        }
+      },
+      "metadata": {
+        "buildInvocationID": "Globally Unique Build Invocation ID. Definition: Identifies this particular build invocation, which can be useful for finding associated logs or other ad-hoc analysis. The exact meaning and format is defined by builder.id; by default it is treated as opaque and case-sensitive. The value SHOULD be globally unique.",
+        "buildStartedOn": "2022-08-05T11:09:03.760788817-07:00",
+        "buildFinishedOn": "2022-08-05T11:09:03.760788817-07:00",
+        "completeness": {
+          "parameters": false,
+          "environment": false,
+          "materials": false
+        },
+        "reproducible": false
+      }
+    }
+  },
+  {
+    "_type": "https://in-toto.io/Statement/v0.1",
+    "predicateType": "https://slsa.dev/provenance/v0.2",
+    "subject": [
+      {
+        "name": "sha256:ba0717e37a630bab618640293d5ac7b9a6b4d0dc8b2be241fedf329311e8a11d",
+        "digest": {
+          "sha256": "ba0717e37a630bab618640293d5ac7b9a6b4d0dc8b2be241fedf329311e8a11d"
+        }
+      }
+    ],
+    "predicate": {
+      "builder": {
+        "id": "URI indicating the builder identity. E.g. pipeline-name"
+      },
+      "buildType": "URI indicating what type of build was performed. E.g. build-type-dockerfile-build",
+      "invocation": {
+        "configSource": {
+          "uri": "URI to Git repo of Dockerfile. Describes where the config file that kicked off the build came from. URI indicating the identity of the source of the config. E.g. https://www.github.com/example/reponame/blob/master/Dockerfile",
+          "digest": {
+            "commit": "Git commit SHA that kicked off the build."
+          },
+          "entryPoint": "Path to Dockerfile in the repo. Definition: String identifying the entry point into the build. This is often a path to a configuration file and/or a target label within that file. The syntax and meaning are defined by buildType. For example, if the buildType were “make”, then this would reference the directory in which to run make as well as which target to use."
+        },
+        "parameters": {
+          "LayerHistory": {
+            "LayerDescriptor": {
+              "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+              "digest": "sha256:ba0717e37a630bab618640293d5ac7b9a6b4d0dc8b2be241fedf329311e8a11d",
+              "size": 115
+            },
+            "LayerCreationType": "COPY-FromMultistageBuildStageLayer",
+            "DockerfileCommands": [
+              {
+                "Cmd": "FROM",
+                "SubCmd": "",
+                "Json": false,
+                "Original": "FROM docker.io/library/python:3-bullseye as builder2",
+                "StartLine": 17,
+                "EndLine": 17,
+                "Flags": [],
+                "Value": [
+                  "docker.io/library/python:3-bullseye",
+                  "as",
+                  "builder2"
+                ]
+              },
+              {
+                "Cmd": "RUN",
+                "SubCmd": "",
+                "Json": false,
+                "Original": "RUN echo \"builder2Foo\" \u003e /builder2Foo.txt",
+                "StartLine": 19,
+                "EndLine": 19,
+                "Flags": [],
+                "Value": [
+                  "echo \"builder2Foo\" \u003e /builder2Foo.txt"
+                ]
+              },
+              {
+                "Cmd": "EXPOSE",
+                "SubCmd": "",
+                "Json": false,
+                "Original": "EXPOSE 5000/tcp",
+                "StartLine": 21,
+                "EndLine": 21,
+                "Flags": [],
+                "Value": [
+                  "5000/tcp"
+                ]
+              },
+              {
+                "Cmd": "EXPOSE",
+                "SubCmd": "",
+                "Json": false,
+                "Original": "EXPOSE 5000/udp",
+                "StartLine": 22,
+                "EndLine": 22,
+                "Flags": [],
+                "Value": [
+                  "5000/udp"
+                ]
+              },
+              {
+                "Cmd": "ENV",
+                "SubCmd": "",
+                "Json": false,
+                "Original": "ENV PYTHON_ENV_1=\"python_env_val_1\"",
+                "StartLine": 23,
+                "EndLine": 23,
+                "Flags": [],
+                "Value": [
+                  "PYTHON_ENV_1",
+                  "\"python_env_val_1\""
+                ]
+              },
+              {
+                "Cmd": "RUN",
+                "SubCmd": "",
+                "Json": false,
+                "Original": "RUN echo \"builder2Bar\" \u003e /builder2Bar.txt",
+                "StartLine": 25,
+                "EndLine": 25,
+                "Flags": [],
+                "Value": [
+                  "echo \"builder2Bar\" \u003e /builder2Bar.txt"
+                ]
+              },
+              {
+                "Cmd": "COPY",
+                "SubCmd": "",
+                "Json": false,
+                "Original": "COPY --from=builder2 /builder2Bar.txt /builder2Bar.txt",
+                "StartLine": 48,
+                "EndLine": 48,
+                "Flags": [
+                  "--from=builder2"
+                ],
+                "Value": [
+                  "/builder2Bar.txt",
+                  "/builder2Bar.txt"
+                ]
+              }
+            ],
+            "BaseImage": "docker.io/library/python:3-bullseye",
+            "AttributionAnnotations": {
+              "responsible_entity_id": "ID of the responsible entity that introduced non-base image layers. i.e. Entity ID of the Dockerfile Author. This denotes responsible entity for the new layers added on top of base image layers."
+            }
+          }
+        }
+      },
+      "metadata": {
+        "buildInvocationID": "Globally Unique Build Invocation ID. Definition: Identifies this particular build invocation, which can be useful for finding associated logs or other ad-hoc analysis. The exact meaning and format is defined by builder.id; by default it is treated as opaque and case-sensitive. The value SHOULD be globally unique.",
+        "buildStartedOn": "2022-08-05T11:09:03.760788817-07:00",
+        "buildFinishedOn": "2022-08-05T11:09:03.760788817-07:00",
+        "completeness": {
+          "parameters": false,
+          "environment": false,
+          "materials": false
+        },
+        "reproducible": false
+      }
+    }
+  },
+  {
+    "_type": "https://in-toto.io/Statement/v0.1",
+    "predicateType": "https://slsa.dev/provenance/v0.2",
+    "subject": [
+      {
+        "name": "sha256:7e3c744a1b55d0735f5fb0778f94f583e98bc5ac5861f5f168d8678fd1e8607d",
+        "digest": {
+          "sha256": "7e3c744a1b55d0735f5fb0778f94f583e98bc5ac5861f5f168d8678fd1e8607d"
+        }
+      }
+    ],
+    "predicate": {
+      "builder": {
+        "id": "URI indicating the builder identity. E.g. pipeline-name"
+      },
+      "buildType": "URI indicating what type of build was performed. E.g. build-type-dockerfile-build",
+      "invocation": {
+        "configSource": {
+          "uri": "URI to Git repo of Dockerfile. Describes where the config file that kicked off the build came from. URI indicating the identity of the source of the config. E.g. https://www.github.com/example/reponame/blob/master/Dockerfile",
+          "digest": {
+            "commit": "Git commit SHA that kicked off the build."
+          },
+          "entryPoint": "Path to Dockerfile in the repo. Definition: String identifying the entry point into the build. This is often a path to a configuration file and/or a target label within that file. The syntax and meaning are defined by buildType. For example, if the buildType were “make”, then this would reference the directory in which to run make as well as which target to use."
+        },
+        "parameters": {
+          "LayerHistory": {
+            "LayerDescriptor": {
+              "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+              "digest": "sha256:7e3c744a1b55d0735f5fb0778f94f583e98bc5ac5861f5f168d8678fd1e8607d",
+              "size": 21812730
+            },
+            "LayerCreationType": "ADD-CommandLayer",
+            "DockerfileCommands": [
+              {
+                "Cmd": "ADD",
+                "SubCmd": "",
+                "Json": false,
+                "Original": "ADD https://github.com/kubernetes/dashboard/archive/master.tar.gz /kubernetes/dashboard.tar.gz",
+                "StartLine": 49,
+                "EndLine": 49,
+                "Flags": [],
+                "Value": [
+                  "https://github.com/kubernetes/dashboard/archive/master.tar.gz",
+                  "/kubernetes/dashboard.tar.gz"
+                ]
+              }
+            ],
+            "BaseImage": "",
+            "AttributionAnnotations": {
+              "responsible_entity_id": "ID of the responsible entity that introduced non-base image layers. i.e. Entity ID of the Dockerfile Author. This denotes responsible entity for the new layers added on top of base image layers."
+            }
+          }
+        }
+      },
+      "metadata": {
+        "buildInvocationID": "Globally Unique Build Invocation ID. Definition: Identifies this particular build invocation, which can be useful for finding associated logs or other ad-hoc analysis. The exact meaning and format is defined by builder.id; by default it is treated as opaque and case-sensitive. The value SHOULD be globally unique.",
+        "buildStartedOn": "2022-08-05T11:09:03.760788817-07:00",
+        "buildFinishedOn": "2022-08-05T11:09:03.760788817-07:00",
+        "completeness": {
+          "parameters": false,
+          "environment": false,
+          "materials": false
+        },
+        "reproducible": false
+      }
+    }
+  }
+]

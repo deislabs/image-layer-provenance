@@ -1,0 +1,1233 @@
+[
+  {
+    "_type": "https://in-toto.io/Statement/v0.1",
+    "predicateType": "https://slsa.dev/provenance/v0.2",
+    "subject": [
+      {
+        "name": "sha256:1efc276f4ff952c055dea726cfc96ec6a4fdb8b62d9eed816bd2b788f2860ad7",
+        "digest": {
+          "sha256": "1efc276f4ff952c055dea726cfc96ec6a4fdb8b62d9eed816bd2b788f2860ad7"
+        }
+      }
+    ],
+    "predicate": {
+      "builder": {
+        "id": "URI indicating the builder identity. E.g. pipeline-name"
+      },
+      "buildType": "URI indicating what type of build was performed. E.g. build-type-dockerfile-build",
+      "invocation": {
+        "configSource": {
+          "uri": "URI to Git repo of Dockerfile. Describes where the config file that kicked off the build came from. URI indicating the identity of the source of the config. E.g. https://www.github.com/example/reponame/blob/master/Dockerfile",
+          "digest": {
+            "commit": "Git commit SHA that kicked off the build."
+          },
+          "entryPoint": "Path to Dockerfile in the repo. Definition: String identifying the entry point into the build. This is often a path to a configuration file and/or a target label within that file. The syntax and meaning are defined by buildType. For example, if the buildType were “make”, then this would reference the directory in which to run make as well as which target to use."
+        },
+        "parameters": {
+          "LayerHistory": {
+            "LayerDescriptor": {
+              "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+              "digest": "sha256:1efc276f4ff952c055dea726cfc96ec6a4fdb8b62d9eed816bd2b788f2860ad7",
+              "size": 31366757
+            },
+            "LayerCreationType": "FROM-PrimaryBaseImageLayer",
+            "DockerfileCommands": [
+              {
+                "Cmd": "FROM",
+                "SubCmd": "",
+                "Json": false,
+                "Original": "FROM docker.io/library/postgres:14-bullseye",
+                "StartLine": 4,
+                "EndLine": 4,
+                "Flags": [],
+                "Value": [
+                  "docker.io/library/postgres:14-bullseye"
+                ]
+              }
+            ],
+            "BaseImage": "docker.io/library/postgres:14-bullseye",
+            "AttributionAnnotations": null
+          }
+        }
+      },
+      "metadata": {
+        "buildInvocationID": "Globally Unique Build Invocation ID. Definition: Identifies this particular build invocation, which can be useful for finding associated logs or other ad-hoc analysis. The exact meaning and format is defined by builder.id; by default it is treated as opaque and case-sensitive. The value SHOULD be globally unique.",
+        "buildStartedOn": "2022-08-05T11:08:58.326691754-07:00",
+        "buildFinishedOn": "2022-08-05T11:08:58.326691754-07:00",
+        "completeness": {
+          "parameters": false,
+          "environment": false,
+          "materials": false
+        },
+        "reproducible": false
+      }
+    }
+  },
+  {
+    "_type": "https://in-toto.io/Statement/v0.1",
+    "predicateType": "https://slsa.dev/provenance/v0.2",
+    "subject": [
+      {
+        "name": "sha256:66c520df917d3715e4642387ce8786797c184e9f415a1aeab04e5dd070022702",
+        "digest": {
+          "sha256": "66c520df917d3715e4642387ce8786797c184e9f415a1aeab04e5dd070022702"
+        }
+      }
+    ],
+    "predicate": {
+      "builder": {
+        "id": "URI indicating the builder identity. E.g. pipeline-name"
+      },
+      "buildType": "URI indicating what type of build was performed. E.g. build-type-dockerfile-build",
+      "invocation": {
+        "configSource": {
+          "uri": "URI to Git repo of Dockerfile. Describes where the config file that kicked off the build came from. URI indicating the identity of the source of the config. E.g. https://www.github.com/example/reponame/blob/master/Dockerfile",
+          "digest": {
+            "commit": "Git commit SHA that kicked off the build."
+          },
+          "entryPoint": "Path to Dockerfile in the repo. Definition: String identifying the entry point into the build. This is often a path to a configuration file and/or a target label within that file. The syntax and meaning are defined by buildType. For example, if the buildType were “make”, then this would reference the directory in which to run make as well as which target to use."
+        },
+        "parameters": {
+          "LayerHistory": {
+            "LayerDescriptor": {
+              "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+              "digest": "sha256:66c520df917d3715e4642387ce8786797c184e9f415a1aeab04e5dd070022702",
+              "size": 4414772
+            },
+            "LayerCreationType": "FROM-PrimaryBaseImageLayer",
+            "DockerfileCommands": [
+              {
+                "Cmd": "FROM",
+                "SubCmd": "",
+                "Json": false,
+                "Original": "FROM docker.io/library/postgres:14-bullseye",
+                "StartLine": 4,
+                "EndLine": 4,
+                "Flags": [],
+                "Value": [
+                  "docker.io/library/postgres:14-bullseye"
+                ]
+              }
+            ],
+            "BaseImage": "docker.io/library/postgres:14-bullseye",
+            "AttributionAnnotations": null
+          }
+        }
+      },
+      "metadata": {
+        "buildInvocationID": "Globally Unique Build Invocation ID. Definition: Identifies this particular build invocation, which can be useful for finding associated logs or other ad-hoc analysis. The exact meaning and format is defined by builder.id; by default it is treated as opaque and case-sensitive. The value SHOULD be globally unique.",
+        "buildStartedOn": "2022-08-05T11:08:58.326691754-07:00",
+        "buildFinishedOn": "2022-08-05T11:08:58.326691754-07:00",
+        "completeness": {
+          "parameters": false,
+          "environment": false,
+          "materials": false
+        },
+        "reproducible": false
+      }
+    }
+  },
+  {
+    "_type": "https://in-toto.io/Statement/v0.1",
+    "predicateType": "https://slsa.dev/provenance/v0.2",
+    "subject": [
+      {
+        "name": "sha256:5b124e6748c9fe30c3e6483ac420fe044a00ad7d38b51783104a8276360ba8ad",
+        "digest": {
+          "sha256": "5b124e6748c9fe30c3e6483ac420fe044a00ad7d38b51783104a8276360ba8ad"
+        }
+      }
+    ],
+    "predicate": {
+      "builder": {
+        "id": "URI indicating the builder identity. E.g. pipeline-name"
+      },
+      "buildType": "URI indicating what type of build was performed. E.g. build-type-dockerfile-build",
+      "invocation": {
+        "configSource": {
+          "uri": "URI to Git repo of Dockerfile. Describes where the config file that kicked off the build came from. URI indicating the identity of the source of the config. E.g. https://www.github.com/example/reponame/blob/master/Dockerfile",
+          "digest": {
+            "commit": "Git commit SHA that kicked off the build."
+          },
+          "entryPoint": "Path to Dockerfile in the repo. Definition: String identifying the entry point into the build. This is often a path to a configuration file and/or a target label within that file. The syntax and meaning are defined by buildType. For example, if the buildType were “make”, then this would reference the directory in which to run make as well as which target to use."
+        },
+        "parameters": {
+          "LayerHistory": {
+            "LayerDescriptor": {
+              "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+              "digest": "sha256:5b124e6748c9fe30c3e6483ac420fe044a00ad7d38b51783104a8276360ba8ad",
+              "size": 1797
+            },
+            "LayerCreationType": "FROM-PrimaryBaseImageLayer",
+            "DockerfileCommands": [
+              {
+                "Cmd": "FROM",
+                "SubCmd": "",
+                "Json": false,
+                "Original": "FROM docker.io/library/postgres:14-bullseye",
+                "StartLine": 4,
+                "EndLine": 4,
+                "Flags": [],
+                "Value": [
+                  "docker.io/library/postgres:14-bullseye"
+                ]
+              }
+            ],
+            "BaseImage": "docker.io/library/postgres:14-bullseye",
+            "AttributionAnnotations": null
+          }
+        }
+      },
+      "metadata": {
+        "buildInvocationID": "Globally Unique Build Invocation ID. Definition: Identifies this particular build invocation, which can be useful for finding associated logs or other ad-hoc analysis. The exact meaning and format is defined by builder.id; by default it is treated as opaque and case-sensitive. The value SHOULD be globally unique.",
+        "buildStartedOn": "2022-08-05T11:08:58.326691754-07:00",
+        "buildFinishedOn": "2022-08-05T11:08:58.326691754-07:00",
+        "completeness": {
+          "parameters": false,
+          "environment": false,
+          "materials": false
+        },
+        "reproducible": false
+      }
+    }
+  },
+  {
+    "_type": "https://in-toto.io/Statement/v0.1",
+    "predicateType": "https://slsa.dev/provenance/v0.2",
+    "subject": [
+      {
+        "name": "sha256:1a06bb042d01cf46ad9ea6c04b8a55c2a6b880c64cbfb887e2d4ae1f42765bfb",
+        "digest": {
+          "sha256": "1a06bb042d01cf46ad9ea6c04b8a55c2a6b880c64cbfb887e2d4ae1f42765bfb"
+        }
+      }
+    ],
+    "predicate": {
+      "builder": {
+        "id": "URI indicating the builder identity. E.g. pipeline-name"
+      },
+      "buildType": "URI indicating what type of build was performed. E.g. build-type-dockerfile-build",
+      "invocation": {
+        "configSource": {
+          "uri": "URI to Git repo of Dockerfile. Describes where the config file that kicked off the build came from. URI indicating the identity of the source of the config. E.g. https://www.github.com/example/reponame/blob/master/Dockerfile",
+          "digest": {
+            "commit": "Git commit SHA that kicked off the build."
+          },
+          "entryPoint": "Path to Dockerfile in the repo. Definition: String identifying the entry point into the build. This is often a path to a configuration file and/or a target label within that file. The syntax and meaning are defined by buildType. For example, if the buildType were “make”, then this would reference the directory in which to run make as well as which target to use."
+        },
+        "parameters": {
+          "LayerHistory": {
+            "LayerDescriptor": {
+              "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+              "digest": "sha256:1a06bb042d01cf46ad9ea6c04b8a55c2a6b880c64cbfb887e2d4ae1f42765bfb",
+              "size": 1418434
+            },
+            "LayerCreationType": "FROM-PrimaryBaseImageLayer",
+            "DockerfileCommands": [
+              {
+                "Cmd": "FROM",
+                "SubCmd": "",
+                "Json": false,
+                "Original": "FROM docker.io/library/postgres:14-bullseye",
+                "StartLine": 4,
+                "EndLine": 4,
+                "Flags": [],
+                "Value": [
+                  "docker.io/library/postgres:14-bullseye"
+                ]
+              }
+            ],
+            "BaseImage": "docker.io/library/postgres:14-bullseye",
+            "AttributionAnnotations": null
+          }
+        }
+      },
+      "metadata": {
+        "buildInvocationID": "Globally Unique Build Invocation ID. Definition: Identifies this particular build invocation, which can be useful for finding associated logs or other ad-hoc analysis. The exact meaning and format is defined by builder.id; by default it is treated as opaque and case-sensitive. The value SHOULD be globally unique.",
+        "buildStartedOn": "2022-08-05T11:08:58.326691754-07:00",
+        "buildFinishedOn": "2022-08-05T11:08:58.326691754-07:00",
+        "completeness": {
+          "parameters": false,
+          "environment": false,
+          "materials": false
+        },
+        "reproducible": false
+      }
+    }
+  },
+  {
+    "_type": "https://in-toto.io/Statement/v0.1",
+    "predicateType": "https://slsa.dev/provenance/v0.2",
+    "subject": [
+      {
+        "name": "sha256:e3849c675ec5f366fccdecb7e849db6ab96b31f0d19104b8aaac2e51fe5ca1a2",
+        "digest": {
+          "sha256": "e3849c675ec5f366fccdecb7e849db6ab96b31f0d19104b8aaac2e51fe5ca1a2"
+        }
+      }
+    ],
+    "predicate": {
+      "builder": {
+        "id": "URI indicating the builder identity. E.g. pipeline-name"
+      },
+      "buildType": "URI indicating what type of build was performed. E.g. build-type-dockerfile-build",
+      "invocation": {
+        "configSource": {
+          "uri": "URI to Git repo of Dockerfile. Describes where the config file that kicked off the build came from. URI indicating the identity of the source of the config. E.g. https://www.github.com/example/reponame/blob/master/Dockerfile",
+          "digest": {
+            "commit": "Git commit SHA that kicked off the build."
+          },
+          "entryPoint": "Path to Dockerfile in the repo. Definition: String identifying the entry point into the build. This is often a path to a configuration file and/or a target label within that file. The syntax and meaning are defined by buildType. For example, if the buildType were “make”, then this would reference the directory in which to run make as well as which target to use."
+        },
+        "parameters": {
+          "LayerHistory": {
+            "LayerDescriptor": {
+              "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+              "digest": "sha256:e3849c675ec5f366fccdecb7e849db6ab96b31f0d19104b8aaac2e51fe5ca1a2",
+              "size": 8045320
+            },
+            "LayerCreationType": "FROM-PrimaryBaseImageLayer",
+            "DockerfileCommands": [
+              {
+                "Cmd": "FROM",
+                "SubCmd": "",
+                "Json": false,
+                "Original": "FROM docker.io/library/postgres:14-bullseye",
+                "StartLine": 4,
+                "EndLine": 4,
+                "Flags": [],
+                "Value": [
+                  "docker.io/library/postgres:14-bullseye"
+                ]
+              }
+            ],
+            "BaseImage": "docker.io/library/postgres:14-bullseye",
+            "AttributionAnnotations": null
+          }
+        }
+      },
+      "metadata": {
+        "buildInvocationID": "Globally Unique Build Invocation ID. Definition: Identifies this particular build invocation, which can be useful for finding associated logs or other ad-hoc analysis. The exact meaning and format is defined by builder.id; by default it is treated as opaque and case-sensitive. The value SHOULD be globally unique.",
+        "buildStartedOn": "2022-08-05T11:08:58.326691754-07:00",
+        "buildFinishedOn": "2022-08-05T11:08:58.326691754-07:00",
+        "completeness": {
+          "parameters": false,
+          "environment": false,
+          "materials": false
+        },
+        "reproducible": false
+      }
+    }
+  },
+  {
+    "_type": "https://in-toto.io/Statement/v0.1",
+    "predicateType": "https://slsa.dev/provenance/v0.2",
+    "subject": [
+      {
+        "name": "sha256:d3b2eaf1435b467f692b57d4474b688b9597a8789a1593b6f3a82c386b21d5c8",
+        "digest": {
+          "sha256": "d3b2eaf1435b467f692b57d4474b688b9597a8789a1593b6f3a82c386b21d5c8"
+        }
+      }
+    ],
+    "predicate": {
+      "builder": {
+        "id": "URI indicating the builder identity. E.g. pipeline-name"
+      },
+      "buildType": "URI indicating what type of build was performed. E.g. build-type-dockerfile-build",
+      "invocation": {
+        "configSource": {
+          "uri": "URI to Git repo of Dockerfile. Describes where the config file that kicked off the build came from. URI indicating the identity of the source of the config. E.g. https://www.github.com/example/reponame/blob/master/Dockerfile",
+          "digest": {
+            "commit": "Git commit SHA that kicked off the build."
+          },
+          "entryPoint": "Path to Dockerfile in the repo. Definition: String identifying the entry point into the build. This is often a path to a configuration file and/or a target label within that file. The syntax and meaning are defined by buildType. For example, if the buildType were “make”, then this would reference the directory in which to run make as well as which target to use."
+        },
+        "parameters": {
+          "LayerHistory": {
+            "LayerDescriptor": {
+              "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+              "digest": "sha256:d3b2eaf1435b467f692b57d4474b688b9597a8789a1593b6f3a82c386b21d5c8",
+              "size": 1261141
+            },
+            "LayerCreationType": "FROM-PrimaryBaseImageLayer",
+            "DockerfileCommands": [
+              {
+                "Cmd": "FROM",
+                "SubCmd": "",
+                "Json": false,
+                "Original": "FROM docker.io/library/postgres:14-bullseye",
+                "StartLine": 4,
+                "EndLine": 4,
+                "Flags": [],
+                "Value": [
+                  "docker.io/library/postgres:14-bullseye"
+                ]
+              }
+            ],
+            "BaseImage": "docker.io/library/postgres:14-bullseye",
+            "AttributionAnnotations": null
+          }
+        }
+      },
+      "metadata": {
+        "buildInvocationID": "Globally Unique Build Invocation ID. Definition: Identifies this particular build invocation, which can be useful for finding associated logs or other ad-hoc analysis. The exact meaning and format is defined by builder.id; by default it is treated as opaque and case-sensitive. The value SHOULD be globally unique.",
+        "buildStartedOn": "2022-08-05T11:08:58.326691754-07:00",
+        "buildFinishedOn": "2022-08-05T11:08:58.326691754-07:00",
+        "completeness": {
+          "parameters": false,
+          "environment": false,
+          "materials": false
+        },
+        "reproducible": false
+      }
+    }
+  },
+  {
+    "_type": "https://in-toto.io/Statement/v0.1",
+    "predicateType": "https://slsa.dev/provenance/v0.2",
+    "subject": [
+      {
+        "name": "sha256:074399829dc9a56b8d422dc00806dbff19fef84dfaaebd8a0ee891057e34111f",
+        "digest": {
+          "sha256": "074399829dc9a56b8d422dc00806dbff19fef84dfaaebd8a0ee891057e34111f"
+        }
+      }
+    ],
+    "predicate": {
+      "builder": {
+        "id": "URI indicating the builder identity. E.g. pipeline-name"
+      },
+      "buildType": "URI indicating what type of build was performed. E.g. build-type-dockerfile-build",
+      "invocation": {
+        "configSource": {
+          "uri": "URI to Git repo of Dockerfile. Describes where the config file that kicked off the build came from. URI indicating the identity of the source of the config. E.g. https://www.github.com/example/reponame/blob/master/Dockerfile",
+          "digest": {
+            "commit": "Git commit SHA that kicked off the build."
+          },
+          "entryPoint": "Path to Dockerfile in the repo. Definition: String identifying the entry point into the build. This is often a path to a configuration file and/or a target label within that file. The syntax and meaning are defined by buildType. For example, if the buildType were “make”, then this would reference the directory in which to run make as well as which target to use."
+        },
+        "parameters": {
+          "LayerHistory": {
+            "LayerDescriptor": {
+              "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+              "digest": "sha256:074399829dc9a56b8d422dc00806dbff19fef84dfaaebd8a0ee891057e34111f",
+              "size": 149
+            },
+            "LayerCreationType": "FROM-PrimaryBaseImageLayer",
+            "DockerfileCommands": [
+              {
+                "Cmd": "FROM",
+                "SubCmd": "",
+                "Json": false,
+                "Original": "FROM docker.io/library/postgres:14-bullseye",
+                "StartLine": 4,
+                "EndLine": 4,
+                "Flags": [],
+                "Value": [
+                  "docker.io/library/postgres:14-bullseye"
+                ]
+              }
+            ],
+            "BaseImage": "docker.io/library/postgres:14-bullseye",
+            "AttributionAnnotations": null
+          }
+        }
+      },
+      "metadata": {
+        "buildInvocationID": "Globally Unique Build Invocation ID. Definition: Identifies this particular build invocation, which can be useful for finding associated logs or other ad-hoc analysis. The exact meaning and format is defined by builder.id; by default it is treated as opaque and case-sensitive. The value SHOULD be globally unique.",
+        "buildStartedOn": "2022-08-05T11:08:58.326691754-07:00",
+        "buildFinishedOn": "2022-08-05T11:08:58.326691754-07:00",
+        "completeness": {
+          "parameters": false,
+          "environment": false,
+          "materials": false
+        },
+        "reproducible": false
+      }
+    }
+  },
+  {
+    "_type": "https://in-toto.io/Statement/v0.1",
+    "predicateType": "https://slsa.dev/provenance/v0.2",
+    "subject": [
+      {
+        "name": "sha256:6feb085525d8c7a128d17fe5f690efaae1aa9f6b3cfe722e409f7e2d775a1d9f",
+        "digest": {
+          "sha256": "6feb085525d8c7a128d17fe5f690efaae1aa9f6b3cfe722e409f7e2d775a1d9f"
+        }
+      }
+    ],
+    "predicate": {
+      "builder": {
+        "id": "URI indicating the builder identity. E.g. pipeline-name"
+      },
+      "buildType": "URI indicating what type of build was performed. E.g. build-type-dockerfile-build",
+      "invocation": {
+        "configSource": {
+          "uri": "URI to Git repo of Dockerfile. Describes where the config file that kicked off the build came from. URI indicating the identity of the source of the config. E.g. https://www.github.com/example/reponame/blob/master/Dockerfile",
+          "digest": {
+            "commit": "Git commit SHA that kicked off the build."
+          },
+          "entryPoint": "Path to Dockerfile in the repo. Definition: String identifying the entry point into the build. This is often a path to a configuration file and/or a target label within that file. The syntax and meaning are defined by buildType. For example, if the buildType were “make”, then this would reference the directory in which to run make as well as which target to use."
+        },
+        "parameters": {
+          "LayerHistory": {
+            "LayerDescriptor": {
+              "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+              "digest": "sha256:6feb085525d8c7a128d17fe5f690efaae1aa9f6b3cfe722e409f7e2d775a1d9f",
+              "size": 3201
+            },
+            "LayerCreationType": "FROM-PrimaryBaseImageLayer",
+            "DockerfileCommands": [
+              {
+                "Cmd": "FROM",
+                "SubCmd": "",
+                "Json": false,
+                "Original": "FROM docker.io/library/postgres:14-bullseye",
+                "StartLine": 4,
+                "EndLine": 4,
+                "Flags": [],
+                "Value": [
+                  "docker.io/library/postgres:14-bullseye"
+                ]
+              }
+            ],
+            "BaseImage": "docker.io/library/postgres:14-bullseye",
+            "AttributionAnnotations": null
+          }
+        }
+      },
+      "metadata": {
+        "buildInvocationID": "Globally Unique Build Invocation ID. Definition: Identifies this particular build invocation, which can be useful for finding associated logs or other ad-hoc analysis. The exact meaning and format is defined by builder.id; by default it is treated as opaque and case-sensitive. The value SHOULD be globally unique.",
+        "buildStartedOn": "2022-08-05T11:08:58.326691754-07:00",
+        "buildFinishedOn": "2022-08-05T11:08:58.326691754-07:00",
+        "completeness": {
+          "parameters": false,
+          "environment": false,
+          "materials": false
+        },
+        "reproducible": false
+      }
+    }
+  },
+  {
+    "_type": "https://in-toto.io/Statement/v0.1",
+    "predicateType": "https://slsa.dev/provenance/v0.2",
+    "subject": [
+      {
+        "name": "sha256:02f61377c93d363a14ea4d8e7d95d272cb5e7339745fe44ff6cc1035e800f03b",
+        "digest": {
+          "sha256": "02f61377c93d363a14ea4d8e7d95d272cb5e7339745fe44ff6cc1035e800f03b"
+        }
+      }
+    ],
+    "predicate": {
+      "builder": {
+        "id": "URI indicating the builder identity. E.g. pipeline-name"
+      },
+      "buildType": "URI indicating what type of build was performed. E.g. build-type-dockerfile-build",
+      "invocation": {
+        "configSource": {
+          "uri": "URI to Git repo of Dockerfile. Describes where the config file that kicked off the build came from. URI indicating the identity of the source of the config. E.g. https://www.github.com/example/reponame/blob/master/Dockerfile",
+          "digest": {
+            "commit": "Git commit SHA that kicked off the build."
+          },
+          "entryPoint": "Path to Dockerfile in the repo. Definition: String identifying the entry point into the build. This is often a path to a configuration file and/or a target label within that file. The syntax and meaning are defined by buildType. For example, if the buildType were “make”, then this would reference the directory in which to run make as well as which target to use."
+        },
+        "parameters": {
+          "LayerHistory": {
+            "LayerDescriptor": {
+              "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+              "digest": "sha256:02f61377c93d363a14ea4d8e7d95d272cb5e7339745fe44ff6cc1035e800f03b",
+              "size": 91283718
+            },
+            "LayerCreationType": "FROM-PrimaryBaseImageLayer",
+            "DockerfileCommands": [
+              {
+                "Cmd": "FROM",
+                "SubCmd": "",
+                "Json": false,
+                "Original": "FROM docker.io/library/postgres:14-bullseye",
+                "StartLine": 4,
+                "EndLine": 4,
+                "Flags": [],
+                "Value": [
+                  "docker.io/library/postgres:14-bullseye"
+                ]
+              }
+            ],
+            "BaseImage": "docker.io/library/postgres:14-bullseye",
+            "AttributionAnnotations": null
+          }
+        }
+      },
+      "metadata": {
+        "buildInvocationID": "Globally Unique Build Invocation ID. Definition: Identifies this particular build invocation, which can be useful for finding associated logs or other ad-hoc analysis. The exact meaning and format is defined by builder.id; by default it is treated as opaque and case-sensitive. The value SHOULD be globally unique.",
+        "buildStartedOn": "2022-08-05T11:08:58.326691754-07:00",
+        "buildFinishedOn": "2022-08-05T11:08:58.326691754-07:00",
+        "completeness": {
+          "parameters": false,
+          "environment": false,
+          "materials": false
+        },
+        "reproducible": false
+      }
+    }
+  },
+  {
+    "_type": "https://in-toto.io/Statement/v0.1",
+    "predicateType": "https://slsa.dev/provenance/v0.2",
+    "subject": [
+      {
+        "name": "sha256:d639033f0429d74740a2edfae54e72e95aae39be6443bdb59ea9d7bd88428c47",
+        "digest": {
+          "sha256": "d639033f0429d74740a2edfae54e72e95aae39be6443bdb59ea9d7bd88428c47"
+        }
+      }
+    ],
+    "predicate": {
+      "builder": {
+        "id": "URI indicating the builder identity. E.g. pipeline-name"
+      },
+      "buildType": "URI indicating what type of build was performed. E.g. build-type-dockerfile-build",
+      "invocation": {
+        "configSource": {
+          "uri": "URI to Git repo of Dockerfile. Describes where the config file that kicked off the build came from. URI indicating the identity of the source of the config. E.g. https://www.github.com/example/reponame/blob/master/Dockerfile",
+          "digest": {
+            "commit": "Git commit SHA that kicked off the build."
+          },
+          "entryPoint": "Path to Dockerfile in the repo. Definition: String identifying the entry point into the build. This is often a path to a configuration file and/or a target label within that file. The syntax and meaning are defined by buildType. For example, if the buildType were “make”, then this would reference the directory in which to run make as well as which target to use."
+        },
+        "parameters": {
+          "LayerHistory": {
+            "LayerDescriptor": {
+              "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+              "digest": "sha256:d639033f0429d74740a2edfae54e72e95aae39be6443bdb59ea9d7bd88428c47",
+              "size": 9535
+            },
+            "LayerCreationType": "FROM-PrimaryBaseImageLayer",
+            "DockerfileCommands": [
+              {
+                "Cmd": "FROM",
+                "SubCmd": "",
+                "Json": false,
+                "Original": "FROM docker.io/library/postgres:14-bullseye",
+                "StartLine": 4,
+                "EndLine": 4,
+                "Flags": [],
+                "Value": [
+                  "docker.io/library/postgres:14-bullseye"
+                ]
+              }
+            ],
+            "BaseImage": "docker.io/library/postgres:14-bullseye",
+            "AttributionAnnotations": null
+          }
+        }
+      },
+      "metadata": {
+        "buildInvocationID": "Globally Unique Build Invocation ID. Definition: Identifies this particular build invocation, which can be useful for finding associated logs or other ad-hoc analysis. The exact meaning and format is defined by builder.id; by default it is treated as opaque and case-sensitive. The value SHOULD be globally unique.",
+        "buildStartedOn": "2022-08-05T11:08:58.326691754-07:00",
+        "buildFinishedOn": "2022-08-05T11:08:58.326691754-07:00",
+        "completeness": {
+          "parameters": false,
+          "environment": false,
+          "materials": false
+        },
+        "reproducible": false
+      }
+    }
+  },
+  {
+    "_type": "https://in-toto.io/Statement/v0.1",
+    "predicateType": "https://slsa.dev/provenance/v0.2",
+    "subject": [
+      {
+        "name": "sha256:1a040507c35bc1a8980e5411bb975d98c9fc41964b16f40096a3755e6607e5cc",
+        "digest": {
+          "sha256": "1a040507c35bc1a8980e5411bb975d98c9fc41964b16f40096a3755e6607e5cc"
+        }
+      }
+    ],
+    "predicate": {
+      "builder": {
+        "id": "URI indicating the builder identity. E.g. pipeline-name"
+      },
+      "buildType": "URI indicating what type of build was performed. E.g. build-type-dockerfile-build",
+      "invocation": {
+        "configSource": {
+          "uri": "URI to Git repo of Dockerfile. Describes where the config file that kicked off the build came from. URI indicating the identity of the source of the config. E.g. https://www.github.com/example/reponame/blob/master/Dockerfile",
+          "digest": {
+            "commit": "Git commit SHA that kicked off the build."
+          },
+          "entryPoint": "Path to Dockerfile in the repo. Definition: String identifying the entry point into the build. This is often a path to a configuration file and/or a target label within that file. The syntax and meaning are defined by buildType. For example, if the buildType were “make”, then this would reference the directory in which to run make as well as which target to use."
+        },
+        "parameters": {
+          "LayerHistory": {
+            "LayerDescriptor": {
+              "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+              "digest": "sha256:1a040507c35bc1a8980e5411bb975d98c9fc41964b16f40096a3755e6607e5cc",
+              "size": 129
+            },
+            "LayerCreationType": "FROM-PrimaryBaseImageLayer",
+            "DockerfileCommands": [
+              {
+                "Cmd": "FROM",
+                "SubCmd": "",
+                "Json": false,
+                "Original": "FROM docker.io/library/postgres:14-bullseye",
+                "StartLine": 4,
+                "EndLine": 4,
+                "Flags": [],
+                "Value": [
+                  "docker.io/library/postgres:14-bullseye"
+                ]
+              }
+            ],
+            "BaseImage": "docker.io/library/postgres:14-bullseye",
+            "AttributionAnnotations": null
+          }
+        }
+      },
+      "metadata": {
+        "buildInvocationID": "Globally Unique Build Invocation ID. Definition: Identifies this particular build invocation, which can be useful for finding associated logs or other ad-hoc analysis. The exact meaning and format is defined by builder.id; by default it is treated as opaque and case-sensitive. The value SHOULD be globally unique.",
+        "buildStartedOn": "2022-08-05T11:08:58.326691754-07:00",
+        "buildFinishedOn": "2022-08-05T11:08:58.326691754-07:00",
+        "completeness": {
+          "parameters": false,
+          "environment": false,
+          "materials": false
+        },
+        "reproducible": false
+      }
+    }
+  },
+  {
+    "_type": "https://in-toto.io/Statement/v0.1",
+    "predicateType": "https://slsa.dev/provenance/v0.2",
+    "subject": [
+      {
+        "name": "sha256:aa2ec30a462da8c5629703ece571f574c6c90c4d98a94b3baef0486367b4eeb1",
+        "digest": {
+          "sha256": "aa2ec30a462da8c5629703ece571f574c6c90c4d98a94b3baef0486367b4eeb1"
+        }
+      }
+    ],
+    "predicate": {
+      "builder": {
+        "id": "URI indicating the builder identity. E.g. pipeline-name"
+      },
+      "buildType": "URI indicating what type of build was performed. E.g. build-type-dockerfile-build",
+      "invocation": {
+        "configSource": {
+          "uri": "URI to Git repo of Dockerfile. Describes where the config file that kicked off the build came from. URI indicating the identity of the source of the config. E.g. https://www.github.com/example/reponame/blob/master/Dockerfile",
+          "digest": {
+            "commit": "Git commit SHA that kicked off the build."
+          },
+          "entryPoint": "Path to Dockerfile in the repo. Definition: String identifying the entry point into the build. This is often a path to a configuration file and/or a target label within that file. The syntax and meaning are defined by buildType. For example, if the buildType were “make”, then this would reference the directory in which to run make as well as which target to use."
+        },
+        "parameters": {
+          "LayerHistory": {
+            "LayerDescriptor": {
+              "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+              "digest": "sha256:aa2ec30a462da8c5629703ece571f574c6c90c4d98a94b3baef0486367b4eeb1",
+              "size": 201
+            },
+            "LayerCreationType": "FROM-PrimaryBaseImageLayer",
+            "DockerfileCommands": [
+              {
+                "Cmd": "FROM",
+                "SubCmd": "",
+                "Json": false,
+                "Original": "FROM docker.io/library/postgres:14-bullseye",
+                "StartLine": 4,
+                "EndLine": 4,
+                "Flags": [],
+                "Value": [
+                  "docker.io/library/postgres:14-bullseye"
+                ]
+              }
+            ],
+            "BaseImage": "docker.io/library/postgres:14-bullseye",
+            "AttributionAnnotations": null
+          }
+        }
+      },
+      "metadata": {
+        "buildInvocationID": "Globally Unique Build Invocation ID. Definition: Identifies this particular build invocation, which can be useful for finding associated logs or other ad-hoc analysis. The exact meaning and format is defined by builder.id; by default it is treated as opaque and case-sensitive. The value SHOULD be globally unique.",
+        "buildStartedOn": "2022-08-05T11:08:58.326691754-07:00",
+        "buildFinishedOn": "2022-08-05T11:08:58.326691754-07:00",
+        "completeness": {
+          "parameters": false,
+          "environment": false,
+          "materials": false
+        },
+        "reproducible": false
+      }
+    }
+  },
+  {
+    "_type": "https://in-toto.io/Statement/v0.1",
+    "predicateType": "https://slsa.dev/provenance/v0.2",
+    "subject": [
+      {
+        "name": "sha256:11209ef4fb4edbac3d2b1990c7e46717262bf30e759be9a72aa9e8b55601efc1",
+        "digest": {
+          "sha256": "11209ef4fb4edbac3d2b1990c7e46717262bf30e759be9a72aa9e8b55601efc1"
+        }
+      }
+    ],
+    "predicate": {
+      "builder": {
+        "id": "URI indicating the builder identity. E.g. pipeline-name"
+      },
+      "buildType": "URI indicating what type of build was performed. E.g. build-type-dockerfile-build",
+      "invocation": {
+        "configSource": {
+          "uri": "URI to Git repo of Dockerfile. Describes where the config file that kicked off the build came from. URI indicating the identity of the source of the config. E.g. https://www.github.com/example/reponame/blob/master/Dockerfile",
+          "digest": {
+            "commit": "Git commit SHA that kicked off the build."
+          },
+          "entryPoint": "Path to Dockerfile in the repo. Definition: String identifying the entry point into the build. This is often a path to a configuration file and/or a target label within that file. The syntax and meaning are defined by buildType. For example, if the buildType were “make”, then this would reference the directory in which to run make as well as which target to use."
+        },
+        "parameters": {
+          "LayerHistory": {
+            "LayerDescriptor": {
+              "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+              "digest": "sha256:11209ef4fb4edbac3d2b1990c7e46717262bf30e759be9a72aa9e8b55601efc1",
+              "size": 4702
+            },
+            "LayerCreationType": "FROM-PrimaryBaseImageLayer",
+            "DockerfileCommands": [
+              {
+                "Cmd": "FROM",
+                "SubCmd": "",
+                "Json": false,
+                "Original": "FROM docker.io/library/postgres:14-bullseye",
+                "StartLine": 4,
+                "EndLine": 4,
+                "Flags": [],
+                "Value": [
+                  "docker.io/library/postgres:14-bullseye"
+                ]
+              }
+            ],
+            "BaseImage": "docker.io/library/postgres:14-bullseye",
+            "AttributionAnnotations": null
+          }
+        }
+      },
+      "metadata": {
+        "buildInvocationID": "Globally Unique Build Invocation ID. Definition: Identifies this particular build invocation, which can be useful for finding associated logs or other ad-hoc analysis. The exact meaning and format is defined by builder.id; by default it is treated as opaque and case-sensitive. The value SHOULD be globally unique.",
+        "buildStartedOn": "2022-08-05T11:08:58.326691754-07:00",
+        "buildFinishedOn": "2022-08-05T11:08:58.326691754-07:00",
+        "completeness": {
+          "parameters": false,
+          "environment": false,
+          "materials": false
+        },
+        "reproducible": false
+      }
+    }
+  },
+  {
+    "_type": "https://in-toto.io/Statement/v0.1",
+    "predicateType": "https://slsa.dev/provenance/v0.2",
+    "subject": [
+      {
+        "name": "sha256:981507d244a761ade0a4f75e49e23fb5a9e1adedf2fea6a06d852aed7385c1a2",
+        "digest": {
+          "sha256": "981507d244a761ade0a4f75e49e23fb5a9e1adedf2fea6a06d852aed7385c1a2"
+        }
+      }
+    ],
+    "predicate": {
+      "builder": {
+        "id": "URI indicating the builder identity. E.g. pipeline-name"
+      },
+      "buildType": "URI indicating what type of build was performed. E.g. build-type-dockerfile-build",
+      "invocation": {
+        "configSource": {
+          "uri": "URI to Git repo of Dockerfile. Describes where the config file that kicked off the build came from. URI indicating the identity of the source of the config. E.g. https://www.github.com/example/reponame/blob/master/Dockerfile",
+          "digest": {
+            "commit": "Git commit SHA that kicked off the build."
+          },
+          "entryPoint": "Path to Dockerfile in the repo. Definition: String identifying the entry point into the build. This is often a path to a configuration file and/or a target label within that file. The syntax and meaning are defined by buildType. For example, if the buildType were “make”, then this would reference the directory in which to run make as well as which target to use."
+        },
+        "parameters": {
+          "LayerHistory": {
+            "LayerDescriptor": {
+              "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+              "digest": "sha256:981507d244a761ade0a4f75e49e23fb5a9e1adedf2fea6a06d852aed7385c1a2",
+              "size": 1078323
+            },
+            "LayerCreationType": "ADD-CommandLayer",
+            "DockerfileCommands": [
+              {
+                "Cmd": "ADD",
+                "SubCmd": "",
+                "Json": false,
+                "Original": "ADD https://github.com/kubernetes/client-go/archive/master.tar.gz /kubernetes/client-go.tar.gz",
+                "StartLine": 6,
+                "EndLine": 6,
+                "Flags": [],
+                "Value": [
+                  "https://github.com/kubernetes/client-go/archive/master.tar.gz",
+                  "/kubernetes/client-go.tar.gz"
+                ]
+              }
+            ],
+            "BaseImage": "",
+            "AttributionAnnotations": {
+              "responsible_entity_id": "ID of the responsible entity that introduced non-base image layers. i.e. Entity ID of the Dockerfile Author. This denotes responsible entity for the new layers added on top of base image layers."
+            }
+          }
+        }
+      },
+      "metadata": {
+        "buildInvocationID": "Globally Unique Build Invocation ID. Definition: Identifies this particular build invocation, which can be useful for finding associated logs or other ad-hoc analysis. The exact meaning and format is defined by builder.id; by default it is treated as opaque and case-sensitive. The value SHOULD be globally unique.",
+        "buildStartedOn": "2022-08-05T11:08:58.326691754-07:00",
+        "buildFinishedOn": "2022-08-05T11:08:58.326691754-07:00",
+        "completeness": {
+          "parameters": false,
+          "environment": false,
+          "materials": false
+        },
+        "reproducible": false
+      }
+    }
+  },
+  {
+    "_type": "https://in-toto.io/Statement/v0.1",
+    "predicateType": "https://slsa.dev/provenance/v0.2",
+    "subject": [
+      {
+        "name": "sha256:41b25cb0552fcb6e752b6e68892dad74ded141c97dc84cf01c6955b2b94122af",
+        "digest": {
+          "sha256": "41b25cb0552fcb6e752b6e68892dad74ded141c97dc84cf01c6955b2b94122af"
+        }
+      }
+    ],
+    "predicate": {
+      "builder": {
+        "id": "URI indicating the builder identity. E.g. pipeline-name"
+      },
+      "buildType": "URI indicating what type of build was performed. E.g. build-type-dockerfile-build",
+      "invocation": {
+        "configSource": {
+          "uri": "URI to Git repo of Dockerfile. Describes where the config file that kicked off the build came from. URI indicating the identity of the source of the config. E.g. https://www.github.com/example/reponame/blob/master/Dockerfile",
+          "digest": {
+            "commit": "Git commit SHA that kicked off the build."
+          },
+          "entryPoint": "Path to Dockerfile in the repo. Definition: String identifying the entry point into the build. This is often a path to a configuration file and/or a target label within that file. The syntax and meaning are defined by buildType. For example, if the buildType were “make”, then this would reference the directory in which to run make as well as which target to use."
+        },
+        "parameters": {
+          "LayerHistory": {
+            "LayerDescriptor": {
+              "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+              "digest": "sha256:41b25cb0552fcb6e752b6e68892dad74ded141c97dc84cf01c6955b2b94122af",
+              "size": 136
+            },
+            "LayerCreationType": "RUN-CommandLayer",
+            "DockerfileCommands": [
+              {
+                "Cmd": "RUN",
+                "SubCmd": "",
+                "Json": false,
+                "Original": "RUN echo \"hello\" \u003e /hello.txt",
+                "StartLine": 7,
+                "EndLine": 7,
+                "Flags": [],
+                "Value": [
+                  "echo \"hello\" \u003e /hello.txt"
+                ]
+              }
+            ],
+            "BaseImage": "",
+            "AttributionAnnotations": {
+              "responsible_entity_id": "ID of the responsible entity that introduced non-base image layers. i.e. Entity ID of the Dockerfile Author. This denotes responsible entity for the new layers added on top of base image layers."
+            }
+          }
+        }
+      },
+      "metadata": {
+        "buildInvocationID": "Globally Unique Build Invocation ID. Definition: Identifies this particular build invocation, which can be useful for finding associated logs or other ad-hoc analysis. The exact meaning and format is defined by builder.id; by default it is treated as opaque and case-sensitive. The value SHOULD be globally unique.",
+        "buildStartedOn": "2022-08-05T11:08:58.326691754-07:00",
+        "buildFinishedOn": "2022-08-05T11:08:58.326691754-07:00",
+        "completeness": {
+          "parameters": false,
+          "environment": false,
+          "materials": false
+        },
+        "reproducible": false
+      }
+    }
+  },
+  {
+    "_type": "https://in-toto.io/Statement/v0.1",
+    "predicateType": "https://slsa.dev/provenance/v0.2",
+    "subject": [
+      {
+        "name": "sha256:8c191e27a162079da42d3ad6e63f558b5c6143ebffa57f8b955e59c162fbf62b",
+        "digest": {
+          "sha256": "8c191e27a162079da42d3ad6e63f558b5c6143ebffa57f8b955e59c162fbf62b"
+        }
+      }
+    ],
+    "predicate": {
+      "builder": {
+        "id": "URI indicating the builder identity. E.g. pipeline-name"
+      },
+      "buildType": "URI indicating what type of build was performed. E.g. build-type-dockerfile-build",
+      "invocation": {
+        "configSource": {
+          "uri": "URI to Git repo of Dockerfile. Describes where the config file that kicked off the build came from. URI indicating the identity of the source of the config. E.g. https://www.github.com/example/reponame/blob/master/Dockerfile",
+          "digest": {
+            "commit": "Git commit SHA that kicked off the build."
+          },
+          "entryPoint": "Path to Dockerfile in the repo. Definition: String identifying the entry point into the build. This is often a path to a configuration file and/or a target label within that file. The syntax and meaning are defined by buildType. For example, if the buildType were “make”, then this would reference the directory in which to run make as well as which target to use."
+        },
+        "parameters": {
+          "LayerHistory": {
+            "LayerDescriptor": {
+              "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+              "digest": "sha256:8c191e27a162079da42d3ad6e63f558b5c6143ebffa57f8b955e59c162fbf62b",
+              "size": 2722633
+            },
+            "LayerCreationType": "ADD-CommandLayer",
+            "DockerfileCommands": [
+              {
+                "Cmd": "ADD",
+                "SubCmd": "",
+                "Json": false,
+                "Original": "ADD https://github.com/kubernetes/kubectl/archive/master.tar.gz /kubernetes/kubectl.tar.gz",
+                "StartLine": 13,
+                "EndLine": 13,
+                "Flags": [],
+                "Value": [
+                  "https://github.com/kubernetes/kubectl/archive/master.tar.gz",
+                  "/kubernetes/kubectl.tar.gz"
+                ]
+              }
+            ],
+            "BaseImage": "",
+            "AttributionAnnotations": {
+              "responsible_entity_id": "ID of the responsible entity that introduced non-base image layers. i.e. Entity ID of the Dockerfile Author. This denotes responsible entity for the new layers added on top of base image layers."
+            }
+          }
+        }
+      },
+      "metadata": {
+        "buildInvocationID": "Globally Unique Build Invocation ID. Definition: Identifies this particular build invocation, which can be useful for finding associated logs or other ad-hoc analysis. The exact meaning and format is defined by builder.id; by default it is treated as opaque and case-sensitive. The value SHOULD be globally unique.",
+        "buildStartedOn": "2022-08-05T11:08:58.326691754-07:00",
+        "buildFinishedOn": "2022-08-05T11:08:58.326691754-07:00",
+        "completeness": {
+          "parameters": false,
+          "environment": false,
+          "materials": false
+        },
+        "reproducible": false
+      }
+    }
+  },
+  {
+    "_type": "https://in-toto.io/Statement/v0.1",
+    "predicateType": "https://slsa.dev/provenance/v0.2",
+    "subject": [
+      {
+        "name": "sha256:8fcbb82f1f6557c8e484d67b91f8e198bd0f26c4e39a09cefd442ef8b1f81fe1",
+        "digest": {
+          "sha256": "8fcbb82f1f6557c8e484d67b91f8e198bd0f26c4e39a09cefd442ef8b1f81fe1"
+        }
+      }
+    ],
+    "predicate": {
+      "builder": {
+        "id": "URI indicating the builder identity. E.g. pipeline-name"
+      },
+      "buildType": "URI indicating what type of build was performed. E.g. build-type-dockerfile-build",
+      "invocation": {
+        "configSource": {
+          "uri": "URI to Git repo of Dockerfile. Describes where the config file that kicked off the build came from. URI indicating the identity of the source of the config. E.g. https://www.github.com/example/reponame/blob/master/Dockerfile",
+          "digest": {
+            "commit": "Git commit SHA that kicked off the build."
+          },
+          "entryPoint": "Path to Dockerfile in the repo. Definition: String identifying the entry point into the build. This is often a path to a configuration file and/or a target label within that file. The syntax and meaning are defined by buildType. For example, if the buildType were “make”, then this would reference the directory in which to run make as well as which target to use."
+        },
+        "parameters": {
+          "LayerHistory": {
+            "LayerDescriptor": {
+              "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+              "digest": "sha256:8fcbb82f1f6557c8e484d67b91f8e198bd0f26c4e39a09cefd442ef8b1f81fe1",
+              "size": 142
+            },
+            "LayerCreationType": "RUN-CommandLayer",
+            "DockerfileCommands": [
+              {
+                "Cmd": "RUN",
+                "SubCmd": "",
+                "Json": false,
+                "Original": "RUN echo \"breakfast\" \u003e /breakfast.txt",
+                "StartLine": 14,
+                "EndLine": 14,
+                "Flags": [],
+                "Value": [
+                  "echo \"breakfast\" \u003e /breakfast.txt"
+                ]
+              }
+            ],
+            "BaseImage": "",
+            "AttributionAnnotations": {
+              "responsible_entity_id": "ID of the responsible entity that introduced non-base image layers. i.e. Entity ID of the Dockerfile Author. This denotes responsible entity for the new layers added on top of base image layers."
+            }
+          }
+        }
+      },
+      "metadata": {
+        "buildInvocationID": "Globally Unique Build Invocation ID. Definition: Identifies this particular build invocation, which can be useful for finding associated logs or other ad-hoc analysis. The exact meaning and format is defined by builder.id; by default it is treated as opaque and case-sensitive. The value SHOULD be globally unique.",
+        "buildStartedOn": "2022-08-05T11:08:58.326691754-07:00",
+        "buildFinishedOn": "2022-08-05T11:08:58.326691754-07:00",
+        "completeness": {
+          "parameters": false,
+          "environment": false,
+          "materials": false
+        },
+        "reproducible": false
+      }
+    }
+  },
+  {
+    "_type": "https://in-toto.io/Statement/v0.1",
+    "predicateType": "https://slsa.dev/provenance/v0.2",
+    "subject": [
+      {
+        "name": "sha256:bfe49725f773fc1dcc07654ad706acdb7ab0dd4f7eade9adbce0fd4e0637b198",
+        "digest": {
+          "sha256": "bfe49725f773fc1dcc07654ad706acdb7ab0dd4f7eade9adbce0fd4e0637b198"
+        }
+      }
+    ],
+    "predicate": {
+      "builder": {
+        "id": "URI indicating the builder identity. E.g. pipeline-name"
+      },
+      "buildType": "URI indicating what type of build was performed. E.g. build-type-dockerfile-build",
+      "invocation": {
+        "configSource": {
+          "uri": "URI to Git repo of Dockerfile. Describes where the config file that kicked off the build came from. URI indicating the identity of the source of the config. E.g. https://www.github.com/example/reponame/blob/master/Dockerfile",
+          "digest": {
+            "commit": "Git commit SHA that kicked off the build."
+          },
+          "entryPoint": "Path to Dockerfile in the repo. Definition: String identifying the entry point into the build. This is often a path to a configuration file and/or a target label within that file. The syntax and meaning are defined by buildType. For example, if the buildType were “make”, then this would reference the directory in which to run make as well as which target to use."
+        },
+        "parameters": {
+          "LayerHistory": {
+            "LayerDescriptor": {
+              "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+              "digest": "sha256:bfe49725f773fc1dcc07654ad706acdb7ab0dd4f7eade9adbce0fd4e0637b198",
+              "size": 21812730
+            },
+            "LayerCreationType": "ADD-CommandLayer",
+            "DockerfileCommands": [
+              {
+                "Cmd": "ADD",
+                "SubCmd": "",
+                "Json": false,
+                "Original": "ADD https://github.com/kubernetes/dashboard/archive/master.tar.gz /kubernetes/dashboard.tar.gz",
+                "StartLine": 20,
+                "EndLine": 20,
+                "Flags": [],
+                "Value": [
+                  "https://github.com/kubernetes/dashboard/archive/master.tar.gz",
+                  "/kubernetes/dashboard.tar.gz"
+                ]
+              }
+            ],
+            "BaseImage": "",
+            "AttributionAnnotations": {
+              "responsible_entity_id": "ID of the responsible entity that introduced non-base image layers. i.e. Entity ID of the Dockerfile Author. This denotes responsible entity for the new layers added on top of base image layers."
+            }
+          }
+        }
+      },
+      "metadata": {
+        "buildInvocationID": "Globally Unique Build Invocation ID. Definition: Identifies this particular build invocation, which can be useful for finding associated logs or other ad-hoc analysis. The exact meaning and format is defined by builder.id; by default it is treated as opaque and case-sensitive. The value SHOULD be globally unique.",
+        "buildStartedOn": "2022-08-05T11:08:58.326691754-07:00",
+        "buildFinishedOn": "2022-08-05T11:08:58.326691754-07:00",
+        "completeness": {
+          "parameters": false,
+          "environment": false,
+          "materials": false
+        },
+        "reproducible": false
+      }
+    }
+  },
+  {
+    "_type": "https://in-toto.io/Statement/v0.1",
+    "predicateType": "https://slsa.dev/provenance/v0.2",
+    "subject": [
+      {
+        "name": "sha256:521326b9a1155099d23df57705cb7b271526fadb7fee3ad1db37b771b23a5459",
+        "digest": {
+          "sha256": "521326b9a1155099d23df57705cb7b271526fadb7fee3ad1db37b771b23a5459"
+        }
+      }
+    ],
+    "predicate": {
+      "builder": {
+        "id": "URI indicating the builder identity. E.g. pipeline-name"
+      },
+      "buildType": "URI indicating what type of build was performed. E.g. build-type-dockerfile-build",
+      "invocation": {
+        "configSource": {
+          "uri": "URI to Git repo of Dockerfile. Describes where the config file that kicked off the build came from. URI indicating the identity of the source of the config. E.g. https://www.github.com/example/reponame/blob/master/Dockerfile",
+          "digest": {
+            "commit": "Git commit SHA that kicked off the build."
+          },
+          "entryPoint": "Path to Dockerfile in the repo. Definition: String identifying the entry point into the build. This is often a path to a configuration file and/or a target label within that file. The syntax and meaning are defined by buildType. For example, if the buildType were “make”, then this would reference the directory in which to run make as well as which target to use."
+        },
+        "parameters": {
+          "LayerHistory": {
+            "LayerDescriptor": {
+              "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+              "digest": "sha256:521326b9a1155099d23df57705cb7b271526fadb7fee3ad1db37b771b23a5459",
+              "size": 137
+            },
+            "LayerCreationType": "RUN-CommandLayer",
+            "DockerfileCommands": [
+              {
+                "Cmd": "RUN",
+                "SubCmd": "",
+                "Json": false,
+                "Original": "RUN echo \"goodbye\" \u003e /goodbye.txt",
+                "StartLine": 21,
+                "EndLine": 21,
+                "Flags": [],
+                "Value": [
+                  "echo \"goodbye\" \u003e /goodbye.txt"
+                ]
+              }
+            ],
+            "BaseImage": "",
+            "AttributionAnnotations": {
+              "responsible_entity_id": "ID of the responsible entity that introduced non-base image layers. i.e. Entity ID of the Dockerfile Author. This denotes responsible entity for the new layers added on top of base image layers."
+            }
+          }
+        }
+      },
+      "metadata": {
+        "buildInvocationID": "Globally Unique Build Invocation ID. Definition: Identifies this particular build invocation, which can be useful for finding associated logs or other ad-hoc analysis. The exact meaning and format is defined by builder.id; by default it is treated as opaque and case-sensitive. The value SHOULD be globally unique.",
+        "buildStartedOn": "2022-08-05T11:08:58.326691754-07:00",
+        "buildFinishedOn": "2022-08-05T11:08:58.326691754-07:00",
+        "completeness": {
+          "parameters": false,
+          "environment": false,
+          "materials": false
+        },
+        "reproducible": false
+      }
+    }
+  }
+]
