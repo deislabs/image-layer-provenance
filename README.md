@@ -45,7 +45,7 @@ It cannot report the exact Dockerfile instruction that created the layer and int
 
 Without knowing (1) the exact origin of layers and (2) the exact Dockerfile instruction that introduced vulnerable packages, maintainers cannot deliver a timely fix.
 
-### Detailed Background and Examples Into Current Limitations
+### Detailed Background and Examples of Current Limitations
 
 For more info on the current limitations of (1) image history and (2) vulnerability scan reports, see [Current Limitations in Container Image Vulnerability Experience](./docs/current-limitations.md).
 
