@@ -96,7 +96,7 @@ For more info on the current limitations of (1) image history and (2) vulnerabil
 * The builds for `aspnet` and `myapp` images need to be kicked off afterwards so that the patched layer is pulled and used during the build.
 * Again, this is **not possible** due to the image history format not differentiating base image layers and additional layers added by Dockerfile instructions.
 
-![](./docs/media/readme/layer-history-myapp-aspnet-mariner-scratch-image-vuln-in-mariner.drawio.png)
+![](./docs/media/readme/layer-history-foo-bar-ubuntu-imported-image.drawio.png)
 
 -----
 
@@ -106,8 +106,11 @@ For more info on the current limitations of (1) image history and (2) vulnerabil
 * 2 of the images are built by the organization's engineering teams and stored within the organization's registry.
 * 1 image (the base OS image) is built by external upstream maintainers.
 This image is imported from an external registry to the organization's internal registry.
+* Organizations do this because they may not have access to the source code of the base OS images.
+However, they still want to cache the image in their internal registry (by importing the image from the external registry).
+* Downstream images are built on top of this internal registry cache image.
 
-![](./docs/media/readme/layer-history-myapp-aspnet-ubuntu-imported-image.drawio.png)
+![](./docs/media/readme/layer-history-foo-bar-ubuntu-imported-image.drawio.png)
 
 ---
 
@@ -121,7 +124,7 @@ It was imported from an external registry.
 * This is also **not possible** because there is no build provenance indicating which external registry and digest the base image layers came from.
 There is also no infromation indicating whether a registry image was imported from an external registry (i.e., no record to indicate the image came externally).
 
-![](./docs/media/readme/layer-history-myapp-aspnet-ubuntu-imported-image-vuln-in-ubuntu.drawio.png)
+![](./docs/media/readme/layer-history-foo-bar-ubuntu-imported-image-vuln-in-ubuntu.drawio.png)
 
 ## Proposal
 
@@ -149,8 +152,8 @@ The provenance schema will attest build provenance facts for each layer of a con
 ```json
 [
   {
-  (provenance statement attesting the build provenance of layer 1
-  – attesting how the first layer of the image was built OR which base image it was inherited from)
+  // Provenance statement attesting the build provenance of layer 1
+  // – attesting how the first layer of the image was built OR which base image it was inherited from.
     "_type": "https://in-toto.io/Statement/v0.1",
     "predicateType": "https://slsa.dev/provenance/v0.2",
     "subject": [
@@ -179,30 +182,30 @@ The provenance schema will attest build provenance facts for each layer of a con
             "LayerDescriptor": {
               "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
               "digest": "Layer digest, such as sha256:1efc27...",
-              "size": 31366757 (layer size)
+              "size": 31366757 // layer size
             },
-            "LayerCreationType": "[
-              FROM-PrimaryBaseImageLayer            (for layers inherited from base image layers)
-            | COPY-FromMultistageBuildStageLayer  (for layers created through `COPY --from` multistage build stages)
-            | COPY-CommandLayer                   (for layers created through a plain COPY instruction)
-            | ADD-CommandLayer                    (for layers created by the ADD instruction)
-            | RUN-CommandLayer                    (for layers created by the RUN instruction)
-            ]",
+            "LayerCreationType": "LayerType",
+            // LayerType can be one of the following:
+            // FROM-PrimaryBaseImageLayer          // for layers inherited from base image layers
+            // COPY-FromMultistageBuildStageLayer  // for layers created through `COPY --from` multistage build stages
+            // COPY-CommandLayer                   // for layers created through a plain COPY instruction
+            // ADD-CommandLayer                    // for layers created by the ADD instruction
+            // RUN-CommandLayer                    // for layers created by the RUN instruction
             "DockerfileCommands": [
               {
                 "Cmd": "The Dockerfile instruction command, such as FROM, ADD, COPY, RUN, etc.",
                 "SubCmd": "",
                 "Json": false,
                 "Original": "The original instruction in source, such as 'FROM docker.io/library/postgres:14-bullseye'",
-                "StartLine": 30, (the original source line number that starts this command)
-                "EndLine": 30,   (the original source line number that ends this command)
-                "Flags": [],     (Any flags such as `--from=...` for multistage `COPY` commands.)
-                "Value": [       (The contents of the command, such as 'registry/repository:digest' for the FROM command)
+                "StartLine": 30, // the original source line number that starts this command)
+                "EndLine": 30,   // the original source line number that ends this command)
+                "Flags": [],     // Any flags such as `--from=...` for multistage `COPY` commands.)
+                "Value": [       // The contents of the command, such as 'registry/repository:digest' for the FROM command)
                   "docker.io/library/postgres:14-bullseye"
                 ]
               }
             ],
-            (If the layer was inherited from a base image layer, 'BaseImage' is populated with the base image reference.)
+            // If the layer was inherited from a base image layer, 'BaseImage' is populated with the base image reference.)
             "BaseImage": "docker.io/library/postgres:14-bullseye",
             "AttributionAnnotations": null
           }
@@ -210,8 +213,8 @@ The provenance schema will attest build provenance facts for each layer of a con
       },
       "metadata": {
         "buildInvocationID": "Globally Unique Build Invocation ID. Definition: Identifies this particular build invocation, which can be useful for finding associated logs or other ad-hoc analysis. The exact meaning and format is defined by builder.id; by default it is treated as opaque and case-sensitive. The value SHOULD be globally unique.",
-        "buildStartedOn": "2022-08-15T18:43:02.436383968-07:00",  (image build start time)
-        "buildFinishedOn": "2022-08-15T18:43:02.436383968-07:00", (image build end time)
+        "buildStartedOn": "2022-08-15T18:43:02.436383968-07:00",  // image build start time)
+        "buildFinishedOn": "2022-08-15T18:43:02.436383968-07:00", // image build end time)
         "completeness": {
           "parameters": false,
           "environment": false,
@@ -222,8 +225,8 @@ The provenance schema will attest build provenance facts for each layer of a con
     }
   },
   {
-  (provenance statement attesting the build provenance of layer 2
-  – attesting how the second layer of the image was built OR which base image it was inherited from)
+  // Provenance statement attesting the build provenance of layer 2
+  // – attesting how the second layer of the image was built OR which base image it was inherited from.
     "_type": "https://in-toto.io/Statement/v0.1",
     "predicateType": "https://slsa.dev/provenance/v0.2",
     "subject": [
@@ -234,11 +237,13 @@ The provenance schema will attest build provenance facts for each layer of a con
         }
       }
     ],
-    "predicate": {...} (same schema and contents as above)
+    "predicate": {
+      // ... // (same schema and contents as above)
+    } 
   },
   {
-  (provenance statement attesting the build provenance of layer 3
-  – attesting how the third layer of the image was built OR which base image it was inherited from)
+  // Provenance statement attesting the build provenance of layer 3
+  // – attesting how the third layer of the image was built OR which base image it was inherited from.
     "_type": "https://in-toto.io/Statement/v0.1",
     "predicateType": "https://slsa.dev/provenance/v0.2",
     "subject": [
@@ -249,9 +254,11 @@ The provenance schema will attest build provenance facts for each layer of a con
         }
       }
     ],
-    "predicate": {...} (same schema and contents as above)
-  },
-  ...
+    "predicate": {
+      // ... // (same schema and contents as above)
+    } 
+  }
+  // ...
 ]
 ```
 
@@ -261,6 +268,17 @@ This statement will be attached as an [ORAS Reference Artifact](https://oras.lan
 Storing it at the same location as the image allows (1) easy inspection of image provenance and (2) seamless experience during vulnerability investigations.
 
 ![](./docs/media/readme/image-layer-provenance-document-stored-as-oras-reference-artifact.drawio.png)
+
+
+### Organizational-Wide Provenance
+
+A layer history provenance document will be attached to every image within the organization's registries.
+
+![](./docs/media/readme/layer-history-myapp-aspnet-mariner-scratch-image-with-provenance.drawio.png)
+
+If the base OS image is imported from an external registry (imported from external registry and cached in an internal registry), a special provenance document will be attached to the externally-imported image.
+
+![](./docs/media/readme/layer-history-foo-bar-ubuntu-imported-image-with-provenance.drawio.png)
 
 ### Examples of the Proposed Formats
 
