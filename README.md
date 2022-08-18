@@ -1,38 +1,308 @@
-# Image Manifest Layer History
+# Image Layer Provenance and Manifest Layer History
 
-Command-line tool that shows the _**exact**_ Dockerfile commands for each [OCI Image Manifest](https://github.com/opencontainers/image-spec/blob/main/manifest.md) Layer of a container image.
+## Target Audience
 
-## Quick Start
+This is for you if you are:
 
-### Install
+* A container image maintainer who frequently needs to fix image vulnerabilities found by scanners.
+* Someone overwhelmed by image vulnerability scan results.
+  * Scanning images turns up a lot of vulnerabilities.
+  * A lot of vulnerabilities are **unactionable**, such as vulnerabilities in a base OS image that doesn't have a fix yet.
+* A vulnerability responder who cannot determine "ownership" for fixing a detected vulnerability.
+  * Current container image formats and vulnerability scan reports do not show the "provenance" (origin) of a vulnerable package (i.e., "how" a vulnerable package got into the image).
+  * Complex CI/CD pipelines, multiple build engineering systems, and distributed teams are present in today's IT landscape.
+  Without vulnerability provenance (origin information), responders and maintainers cannot determine which build step, repo, specific Dockerfile, or team introduced the vulnerability.
+* An image maintainer or vulnerability responder that is only interested in **actionable** vulnerabilities. Image builders want to differentiate vulnerability alerts between the following 2 types:
+    1. Vulnerabilities from base images – These require coordination with upstream base image maintainers for them to deliver a patched base image.
+    2. Vulnerabilities from new layers introduced by the image builders – These can be immediately remediated and the fix can be rolled out.
+
+## Problem
+
+### Container Image History Limitations Prevent Fixing Vulnerabilities at Source of Origin
+
+Image vulnerabilities have to be fixed at their source of origin.
+However, there are limitations in the container image format and image build history that prevents this.
+
+Image maintainers face (1) image format limitations, (2) image history obfuscation, and (3) lack of image build provenance.
+
+Due to lack of image build provenance, when vulnerability scanners detect a vulnerability within a container image, scanners **cannot** determine the vulnerability's source of origin.
+Simple answers such as the following cannot be reported in vulnerability scan reports:
+
+* Did the vulnerability come from a base image?
+* Is a patched base image available?
+* If the vulnerability did not come from a base image, was the vulnerability introduced through one of my repositories or Dockerfile instructions?
+* Which exact Dockerfile instruction (`RUN pip install vuln-pkg`, `ADD vuln-pkg`) introduced the vulnerability to my container image?
+* A container image "layer" is just a "filesystem diff" (such as a filesystem addition/modification).
+Which exact image layer and its associated Dockerfile instruction introduced/added the vulnerability to the image?
+
+### Vulnerability Scanners for Container Images – Current Limitations
+
+Vulnerability scanners for container images detect vulnerabilities in OS components (ex. Ubuntu/RHEL packages & binaries) and programming language dependencies (ex. npm/pip packages).
+To fix the vulnerability, image builders need to know the exact layer and exact Dockerfile instruction that introduced the vulnerability to the filesystem.
+
+Due to current limitations in the container image format, scanners can only report the layer that introduced the vulnerability.
+It cannot report the exact Dockerfile instruction that created the layer and introduced the vulnerability.
+
+Without knowing (1) the exact origin of layers and (2) the exact Dockerfile instruction that introduced vulnerable packages, maintainers cannot deliver a timely fix.
+
+### Detailed Background and Examples Into Current Limitations
+
+For more info on the current limitations of (1) image history and (2) vulnerability scan reports, see [Current Limitations in Container Image Vulnerability Experience](./docs/current-limitations.md).
+
+## Scenarios
+
+### **Context: All images are built from source within an organization. No externally imported base images.**
+
+* Suppose there are 3 images in an organization's registry.
+* All 3 images are built by the organization's engineering teams and stored within the organization's registry.
+* There are no externally imported base images or base images not built within the organization.
+
+![](./docs/media/readme/layer-history-myapp-aspnet-mariner-scratch-image.drawio.png)
+
+-----
+
+**Scenario 1: Suppose the `myapp` image is scanned and a vulnerable package is detected in layer `digest: sha256:5e5e`. All images are built within the organization; no externally imported images.**
+
+* Vulnerability responders need to know the exact build step and file location that introduced the vulnerability.
+* The vulnerability provenance (origin) is from `myapp` image's own Dockerfile.
+  * The vulnerability was introduced in newly added layers caused by the Dockerfile's own instructions.
+  * In other words, the vulnerability was not inherited from base image layers.
+* As such, the fix should be addressed in the `myapp` image and Dockerfile repo.
+* This experience is **not possible** today because the image history format does not store the original/preserved Dockerfile instructions.
+
+![](./docs/media/readme/layer-history-myapp-aspnet-mariner-scratch-image-vuln-in-myapp.drawio.png)
+
+-----
+
+**Scenario 2: Suppose `myapp` image is scanned again, and a vulnerable package is detected in layer `digest: sha256:3c3c`. All images are built within the organization; no externally imported images.**
+
+* The vulnerability was not introduced in `myapp` image's Dockerfile.
+* Instead, the vulnerability was introduced through inheriting the layer (containing the vulnerability) from the `aspnet` base image.
+* As such, the fix should be addressed in the `aspnet` base image and `aspnet`'s Dockerfile repo.
+* The build for `myapp` needs to be kicked off afterwards so that the patched `aspnet` base image is pulled and used during the build.
+* This experience is **not possible** today because:
+  * There is no indication in image layer history whether a vulnerable layer was inherited from a base image.
+  * There is no information in the image format indicating the digest of the base image where the vulnerable layers were inherited from.
+
+![](./docs/media/readme/layer-history-myapp-aspnet-mariner-scratch-image-vuln-in-aspnet.drawio.png)
+
+-----
+
+**Scenario 3: Suppose `myapp` image is scanned again, and a vulnerable package is detected in layer `digest: sha256:1a1a`. All images are built within the organization; no externally imported images.**
+
+* The source of origin of the vulnerability is in the `mariner` base image.
+* The vulnerability also exists in the `aspnet` and `myapp` images because they inherit the layer (containing the vulnerability).
+* As such, the fix should be addressed in the `mariner` base image and `mariner`'s Dockerfile repo.
+* The builds for `aspnet` and `myapp` images need to be kicked off afterwards so that the patched layer is pulled and used during the build.
+* Again, this is **not possible** due to the image history format not differentiating base image layers and additional layers added by Dockerfile instructions.
+
+![](./docs/media/readme/layer-history-myapp-aspnet-mariner-scratch-image-vuln-in-mariner.drawio.png)
+
+-----
+
+### **Context: Some images are built within the organization. However, some base images are imported from an external registry and not built by the organization's maintainers.**
+
+* Suppose there are 3 images in an organization's registry.
+* 2 of the images are built by the organization's engineering teams and stored within the organization's registry.
+* 1 image (the base OS image) is built by external upstream maintainers.
+This image is imported from an external registry to the organization's internal registry.
+
+![](./docs/media/readme/layer-history-myapp-aspnet-ubuntu-imported-image.drawio.png)
+
+---
+
+**Scenario 4: Suppose `myapp` image is scanned, and a vulnerable package is detected in layer `digest: sha256:1a1a`. The base OS image is imported from an external registry and not built internally.**
+
+* The source of origin of the vulnerability is in the upstream `ubuntu` base image.
+This image was not built internally.
+It was imported from an external registry.
+* The organization needs to coordinate with upstream `ubuntu` base image maintainers for them to deliver a patched base image.
+* Afterwards, the builds for `foo` and `bar` images have to be kicked off again so that the patched layer from the base image is pulled and used during the build.
+* This is also **not possible** because there is no build provenance indicating which external registry and digest the base image layers came from.
+There is also no infromation indicating whether a registry image was imported from an external registry (i.e., no record to indicate the image came externally).
+
+![](./docs/media/readme/layer-history-myapp-aspnet-ubuntu-imported-image-vuln-in-ubuntu.drawio.png)
+
+## Proposal
+
+At build time, build tools need to generate image build provenance.
+Currently, no tools generate such provenance information.
+The following provenance information is needed for images to ensure rapid vulnerability response:
+
+* Indication whether an image filesystem layer came from a base image or not.
+  * This will allow image maintainers to determine if a vulnerability was "inherited" from a base image layer, allowing coordination with upstream base image publishers.
+* Information on the exact (1) Git repo, (2) commit, (3) Dockerfile, and (4) Dockerfile instructions and line numbers that generated each image filesystem layer.
+  * This allows maintainers to pinpoint the exact Dockerfile location where a vulnerability is introduced to deliver a rapid patch.
+  * Knowing the exact Dockerfile location, automated Dockerfile patch tools (such as Dependabot or Renovate Bot) will be able to patch vulnerable Dockerfile instructions.
+    * For example, knowing the exact Dockerfile provenance, a bot can patch `RUN pip install pkg-vuln-version` into `RUN pip install pkg-patched-version`.
+* The exact build context (build ID, build pipeline name, build pipeline URI) that generated each image filesystem layer.
+
+### Proposed Format
+
+The proposal is to generate an In-Toto v0.1 SLSA Provenance v0.2 statement.
+
+The provenance schema will attest build provenance facts for each layer of a container image.
+
+* The schema is an array of SLSA Provenance Statements.
+* Each JSON array element below attests build provenance facts **for a single layer only**.
+
+```json
+[
+  {
+  (provenance statement attesting the build provenance of layer 1
+  – attesting how the first layer of the image was built OR which base image it was inherited from)
+    "_type": "https://in-toto.io/Statement/v0.1",
+    "predicateType": "https://slsa.dev/provenance/v0.2",
+    "subject": [
+      {
+        "name": "Digest of layer 1 (first layer of the image), such as sha256:1efc27...",
+        "digest": {
+          "sha256": "Layer digest without the algorithm, such as 1efc27..."
+        }
+      }
+    ],
+    "predicate": {
+      "builder": {
+        "id": "URI indicating the image builder identity. E.g. pipeline-name"
+      },
+      "buildType": "URI indicating what type of build was performed. E.g. dockerfile-build",
+      "invocation": {
+        "configSource": {
+          "uri": "URI to Git repo of Dockerfile. Describes where the Dockerfile that kicked off the build came from. URI indicating the identity of the source of the Dockerfile. E.g. https://www.github.com/example/reponame/blob/master/Dockerfile",
+          "digest": {
+            "commit": "Git commit SHA that kicked off the image build."
+          },
+          "entryPoint": "Path to Dockerfile in the repo."
+        },
+        "parameters": {
+          "LayerHistory": {
+            "LayerDescriptor": {
+              "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+              "digest": "Layer digest, such as sha256:1efc27...",
+              "size": 31366757 (layer size)
+            },
+            "LayerCreationType": "[
+              FROM-PrimaryBaseImageLayer            (for layers inherited from base image layers)
+            | COPY-FromMultistageBuildStageLayer  (for layers created through `COPY --from` multistage build stages)
+            | COPY-CommandLayer                   (for layers created through a plain COPY instruction)
+            | ADD-CommandLayer                    (for layers created by the ADD instruction)
+            | RUN-CommandLayer                    (for layers created by the RUN instruction)
+            ]",
+            "DockerfileCommands": [
+              {
+                "Cmd": "The Dockerfile instruction command, such as FROM, ADD, COPY, RUN, etc.",
+                "SubCmd": "",
+                "Json": false,
+                "Original": "The original instruction in source, such as 'FROM docker.io/library/postgres:14-bullseye'",
+                "StartLine": 30, (the original source line number that starts this command)
+                "EndLine": 30,   (the original source line number that ends this command)
+                "Flags": [],     (Any flags such as `--from=...` for multistage `COPY` commands.)
+                "Value": [       (The contents of the command, such as 'registry/repository:digest' for the FROM command)
+                  "docker.io/library/postgres:14-bullseye"
+                ]
+              }
+            ],
+            (If the layer was inherited from a base image layer, 'BaseImage' is populated with the base image reference.)
+            "BaseImage": "docker.io/library/postgres:14-bullseye",
+            "AttributionAnnotations": null
+          }
+        }
+      },
+      "metadata": {
+        "buildInvocationID": "Globally Unique Build Invocation ID. Definition: Identifies this particular build invocation, which can be useful for finding associated logs or other ad-hoc analysis. The exact meaning and format is defined by builder.id; by default it is treated as opaque and case-sensitive. The value SHOULD be globally unique.",
+        "buildStartedOn": "2022-08-15T18:43:02.436383968-07:00",  (image build start time)
+        "buildFinishedOn": "2022-08-15T18:43:02.436383968-07:00", (image build end time)
+        "completeness": {
+          "parameters": false,
+          "environment": false,
+          "materials": false
+        },
+        "reproducible": false
+      }
+    }
+  },
+  {
+  (provenance statement attesting the build provenance of layer 2
+  – attesting how the second layer of the image was built OR which base image it was inherited from)
+    "_type": "https://in-toto.io/Statement/v0.1",
+    "predicateType": "https://slsa.dev/provenance/v0.2",
+    "subject": [
+      {
+        "name": "Digest of layer 2 (2nd layer of the image), such as sha256:2fes2...",
+        "digest": {
+          "sha256": "Layer digest without the algorithm, such as sha256:2fes2..."
+        }
+      }
+    ],
+    "predicate": {...} (same schema and contents as above)
+  },
+  {
+  (provenance statement attesting the build provenance of layer 3
+  – attesting how the third layer of the image was built OR which base image it was inherited from)
+    "_type": "https://in-toto.io/Statement/v0.1",
+    "predicateType": "https://slsa.dev/provenance/v0.2",
+    "subject": [
+      {
+        "name": "Digest of layer 3 (3rd layer of the image), such as sha256:3kr7a...",
+        "digest": {
+          "sha256": "Layer digest without the algorithm, such as sha256:3kr7a..."
+        }
+      }
+    ],
+    "predicate": {...} (same schema and contents as above)
+  },
+  ...
+]
+```
+
+### Proposed Storage Format
+
+This statement will be attached as an [ORAS Reference Artifact](https://oras.land/cli/6_reference_types/) to the image and stored within the same registry and repository.
+Storing it at the same location as the image allows (1) easy inspection of image provenance and (2) seamless experience during vulnerability investigations.
+
+![](./docs/media/readme/image-layer-provenance-document-stored-as-oras-reference-artifact.drawio.png)
+
+### Examples of the Proposed Formats
+
+Please check out the [examples](./examples/) directory.
+For each example in the examples directory, the following is showcased:
+
+* The original source Dockerfile used to build the image.
+* The OCI Image Manifest JSON of the image.
+* The limited layer history of the image (obtained from `docker image history` output).
+* The SLSA Provenance document that details the FULL layer history and provenance for each layer of the image (filename: `oci-image-manifest-layer-history-slsa.json` within each example directory).
+
+### Proof of Concept CLI Tool
+
+A proof of concept CLI tool was developed to showcase the feasibility of generating (at build time) the full build provenance for each image layer.
+
+This is a command-line tool that shows the _**exact**_ Dockerfile commands that created each [OCI Image Manifest](https://github.com/opencontainers/image-spec/blob/main/manifest.md) layer of a container image.
+
+#### Install
 
 To install, run the following commands.
 
 ```bash
-curl -LO https://github.com/johnsonshi/image-manifest-layer-history/releases/download/v0.0.1/image-layer-dockerfile-history
+curl -LO https://github.com/johnsonshi/image-manifest-layer-history/releases/download/v0.0.2/image-layer-dockerfile-history
 chmod +x image-layer-dockerfile-history
 sudo mv image-layer-dockerfile-history /usr/local/bin
 ```
 
-### Generate
+#### Generate Image and Image Layer Provenance
 
-Generate the history (including the exact Dockerfile commands) for each OCI Image Manifest Layer of a container image.
+Generate a history file that shows the exact Dockerfile commands that created each OCI Image Manifest layer of a container image.
 
 #### Generate – Usage
 
 ```bash
 image-layer-dockerfile-history \
   generate \
-  --username "$username" \
-  --password "$password" \
+  --username "$registry_username" \
+  --password "$registry_password" \
   --image-ref "$image_ref" \
-  --dockerfile "$dockerfile" \
-  --output-file "$output_file" \
-  --attribution-annotation "git_commit_id: $git_commit_id" \
-  --attribution-annotation "git_commit_date: $git_commit_date" \
-  --attribution-annotation "git_commit_name: $git_commit_name" \
-  --attribution-annotation "git_commit_email: $git_commit_email" \
-  --attribution-annotation "git_remote_origin_url: $git_remote_origin_url"
+  --dockerfile "$dockerfile" \ # Path to Dockerfile that was used to build the image.
+  --output-file "layer-history-slsa.json" \
+  --slsa-provenance-json=true
 ```
 
-See [`./scripts/generate-history-all-examples.sh`](./scripts/generate-history-all-examples.sh) for more examples.
+See [`./scripts/generate-history-all-examples.sh`](./scripts/generate-history-all-examples.sh) for more examples on Proof of Concept CLI usage.

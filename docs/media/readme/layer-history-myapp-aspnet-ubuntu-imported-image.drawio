@@ -1,0 +1,152 @@
+<mxfile host="65bd71144e">
+    <diagram id="OL6qlinw-qFKFqK3vssp" name="Page-1">
+        <mxGraphModel dx="787" dy="605" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="dJf0DmdQW_vubxnHisxw-42" value="" style="rounded=0;whiteSpace=wrap;html=1;labelBorderColor=#CC6600;fontFamily=Helvetica;fontSize=11;strokeColor=none;strokeWidth=2;fillColor=#CCCCCC;" parent="1" vertex="1">
+                    <mxGeometry x="390" y="80" width="360" height="600" as="geometry"/>
+                </mxCell>
+                <mxCell id="dJf0DmdQW_vubxnHisxw-43" value="" style="rounded=0;whiteSpace=wrap;html=1;labelBorderColor=#CC6600;fontFamily=Helvetica;fontSize=11;strokeColor=none;strokeWidth=2;fillColor=#B3B3B3;" parent="1" vertex="1">
+                    <mxGeometry x="750" y="80" width="440" height="600" as="geometry"/>
+                </mxCell>
+                <mxCell id="dJf0DmdQW_vubxnHisxw-40" value="" style="rounded=0;whiteSpace=wrap;html=1;labelBorderColor=#CC6600;fontFamily=Helvetica;fontSize=11;strokeColor=none;strokeWidth=2;fillColor=#E6E6E6;" parent="1" vertex="1">
+                    <mxGeometry x="30" y="80" width="360" height="600" as="geometry"/>
+                </mxCell>
+                <mxCell id="dJf0DmdQW_vubxnHisxw-1" value="&lt;b&gt;bar image&lt;/b&gt;&lt;br&gt;{&lt;br&gt;&amp;nbsp; &quot;layers&quot;: [&lt;br&gt;&amp;nbsp; &amp;nbsp; {&lt;br&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &quot;digest&quot;: &quot;sha256:1a1a&quot;&lt;br&gt;&amp;nbsp; &amp;nbsp; },&lt;br&gt;&amp;nbsp; &amp;nbsp; {&lt;br&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &quot;digest&quot;: &quot;sha256:2b2b&quot;&lt;br&gt;&amp;nbsp; &amp;nbsp; },&lt;br&gt;&amp;nbsp; &amp;nbsp; {&lt;br&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &quot;digest&quot;: &quot;sha256:3c3c&quot;&lt;br&gt;&amp;nbsp; &amp;nbsp; },&lt;br&gt;&amp;nbsp; &amp;nbsp; {&lt;br&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &quot;digest&quot;: &quot;sha256:4d4d&quot;&lt;br&gt;&amp;nbsp; &amp;nbsp; },&lt;br&gt;&amp;nbsp; &amp;nbsp; {&lt;br&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &quot;digest&quot;: &quot;sha256:5e5e&quot;&lt;br&gt;&amp;nbsp; &amp;nbsp; }&lt;br&gt;&amp;nbsp; ]&lt;br&gt;}" style="text;strokeColor=#666666;fillColor=#f5f5f5;spacing=0;spacingTop=0;overflow=hidden;rounded=0;whiteSpace=wrap;html=1;spacingLeft=10;fontColor=#333333;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="70" y="160" width="170" height="300" as="geometry"/>
+                </mxCell>
+                <mxCell id="dJf0DmdQW_vubxnHisxw-2" value="&lt;b&gt;foo image&lt;br&gt;&lt;/b&gt;{&lt;br&gt;&amp;nbsp; &quot;layers&quot;: [&lt;br&gt;&amp;nbsp; &amp;nbsp; {&lt;br&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &quot;digest&quot;: &quot;sha256:1a1a&quot;&lt;br&gt;&amp;nbsp; &amp;nbsp; },&lt;br&gt;&amp;nbsp; &amp;nbsp; {&lt;br&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &quot;digest&quot;: &quot;sha256:2b2b&quot;&lt;br&gt;&amp;nbsp; &amp;nbsp; },&lt;br&gt;&amp;nbsp; &amp;nbsp; {&lt;br&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &quot;digest&quot;: &quot;sha256:3c3c&quot;&lt;br&gt;&amp;nbsp; &amp;nbsp; }&lt;br&gt;&amp;nbsp; ]&lt;br&gt;}" style="text;strokeColor=#666666;fillColor=#f5f5f5;spacing=0;spacingTop=0;overflow=hidden;rounded=0;whiteSpace=wrap;html=1;spacingLeft=10;fontColor=#333333;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="410" y="160" width="170" height="220" as="geometry"/>
+                </mxCell>
+                <mxCell id="dJf0DmdQW_vubxnHisxw-3" value="&lt;b&gt;ubuntu image (imported from external registry)&lt;br&gt;&lt;/b&gt;{&lt;br&gt;&amp;nbsp; &quot;layers&quot;: [&lt;br&gt;&amp;nbsp; &amp;nbsp; {&lt;br&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &quot;digest&quot;: &quot;sha256:1a1a&quot;&lt;br&gt;&amp;nbsp; &amp;nbsp; },&lt;br&gt;&amp;nbsp; &amp;nbsp; {&lt;br&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &quot;digest&quot;: &quot;sha256:2b2b&quot;&lt;br&gt;&amp;nbsp; &amp;nbsp; }&lt;br&gt;&amp;nbsp; ]&lt;br&gt;}" style="text;spacing=0;spacingTop=0;overflow=hidden;rounded=0;whiteSpace=wrap;html=1;spacingLeft=10;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="780" y="160" width="350" height="220" as="geometry"/>
+                </mxCell>
+                <mxCell id="dJf0DmdQW_vubxnHisxw-5" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#FF6666;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="90" y="208" width="140" height="130" as="geometry"/>
+                </mxCell>
+                <mxCell id="dJf0DmdQW_vubxnHisxw-6" value="" style="endArrow=classic;html=1;rounded=0;strokeColor=#FF6666;strokeWidth=2;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" parent="1" source="dJf0DmdQW_vubxnHisxw-5" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="230" y="269.65999999999997" as="sourcePoint"/>
+                        <mxPoint x="381" y="273" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="dJf0DmdQW_vubxnHisxw-7" value="Layers come from&lt;br&gt;foo base image" style="edgeLabel;resizable=0;html=1;align=center;verticalAlign=middle;strokeColor=#FF6666;fillColor=none;fontColor=#FF6666;labelBorderColor=#FF6666;spacing=2;spacingLeft=0;spacingRight=0;spacingBottom=0;spacingTop=0;" parent="dJf0DmdQW_vubxnHisxw-6" connectable="0" vertex="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="dJf0DmdQW_vubxnHisxw-8" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#B266FF;strokeWidth=2;fontColor=#B266FF;" parent="1" vertex="1">
+                    <mxGeometry x="430" y="208" width="140" height="86" as="geometry"/>
+                </mxCell>
+                <mxCell id="dJf0DmdQW_vubxnHisxw-9" value="" style="endArrow=classic;html=1;rounded=0;strokeColor=#B266FF;strokeWidth=2;exitX=1;exitY=0.5;exitDx=0;exitDy=0;fontColor=#B266FF;" parent="1" source="dJf0DmdQW_vubxnHisxw-8" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="570" y="272.78" as="sourcePoint"/>
+                        <mxPoint x="750" y="250" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="dJf0DmdQW_vubxnHisxw-10" value="Layers come from&lt;br&gt;ubuntu base image" style="edgeLabel;resizable=0;align=center;verticalAlign=middle;strokeColor=#FF6666;fillColor=none;fontColor=#B266FF;labelBorderColor=#B266FF;spacing=2;spacingLeft=0;spacingRight=0;spacingBottom=0;spacingTop=0;html=1;" parent="dJf0DmdQW_vubxnHisxw-9" connectable="0" vertex="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="dJf0DmdQW_vubxnHisxw-11" value="" style="rounded=0;whiteSpace=wrap;html=1;labelBorderColor=#B266FF;fontColor=#B266FF;strokeColor=#009999;strokeWidth=2;fillColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="90" y="340" width="140" height="85" as="geometry"/>
+                </mxCell>
+                <mxCell id="dJf0DmdQW_vubxnHisxw-12" value="" style="rounded=0;whiteSpace=wrap;html=1;labelBorderColor=#B266FF;fontColor=#B266FF;strokeColor=#00994D;strokeWidth=2;fillColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="430" y="296" width="140" height="43" as="geometry"/>
+                </mxCell>
+                <mxCell id="dJf0DmdQW_vubxnHisxw-13" value="" style="shape=curlyBracket;whiteSpace=wrap;html=1;rounded=1;labelBorderColor=#B266FF;fontColor=#B266FF;strokeColor=#FF6666;strokeWidth=2;fillColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="386" y="208" width="34" height="132" as="geometry"/>
+                </mxCell>
+                <mxCell id="dJf0DmdQW_vubxnHisxw-14" value="" style="shape=curlyBracket;whiteSpace=wrap;html=1;rounded=1;labelBorderColor=#B266FF;fontColor=#B266FF;strokeColor=#B266FF;strokeWidth=2;fillColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="756" y="208" width="34" height="88" as="geometry"/>
+                </mxCell>
+                <mxCell id="dJf0DmdQW_vubxnHisxw-15" value="" style="rounded=0;whiteSpace=wrap;html=1;labelBorderColor=#B266FF;fontColor=#B266FF;strokeColor=#CC6600;strokeWidth=2;fillColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="800" y="208" width="140" height="88" as="geometry"/>
+                </mxCell>
+                <mxCell id="dJf0DmdQW_vubxnHisxw-17" value="&lt;font style=&quot;font-size: 12px&quot;&gt;&lt;b&gt;Dockerfile for bar image&lt;br&gt;&lt;/b&gt;&lt;br&gt;&lt;font face=&quot;Lucida Console&quot;&gt;FROM foo:1.0&lt;/font&gt;&lt;br&gt;&lt;font face=&quot;Lucida Console&quot;&gt;ADD&amp;nbsp; file4&amp;nbsp; /file4&lt;/font&gt;&lt;br&gt;&lt;font face=&quot;Lucida Console&quot;&gt;COPY file3&amp;nbsp; /file5&lt;/font&gt;&lt;br&gt;&lt;/font&gt;" style="text;strokeColor=#666666;fillColor=#f5f5f5;spacing=0;spacingTop=0;overflow=hidden;rounded=0;whiteSpace=wrap;html=1;spacingLeft=10;fontColor=#333333;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="68.75" y="530" width="182.5" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="dJf0DmdQW_vubxnHisxw-18" value="" style="rounded=0;whiteSpace=wrap;html=1;labelBorderColor=#B266FF;fontColor=#B266FF;strokeColor=#009999;strokeWidth=2;fillColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="76" y="579" width="170" height="29" as="geometry"/>
+                </mxCell>
+                <mxCell id="dJf0DmdQW_vubxnHisxw-21" value="" style="endArrow=none;html=1;rounded=0;fontFamily=Lucida Console;fontSize=12;fontColor=#B266FF;strokeColor=#FF6666;strokeWidth=2;exitX=0.995;exitY=0.635;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" source="dJf0DmdQW_vubxnHisxw-22" edge="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="280" y="575" as="sourcePoint"/>
+                        <mxPoint x="310" y="287.5" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="310" y="572"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="dJf0DmdQW_vubxnHisxw-22" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#FF6666;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="76" y="564" width="170" height="13" as="geometry"/>
+                </mxCell>
+                <mxCell id="dJf0DmdQW_vubxnHisxw-23" value="" style="endArrow=none;html=1;rounded=0;strokeColor=#009999;strokeWidth=2;exitX=0.998;exitY=0.568;exitDx=0;exitDy=0;endFill=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;exitPerimeter=0;" parent="1" source="dJf0DmdQW_vubxnHisxw-18" target="dJf0DmdQW_vubxnHisxw-11" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="340" y="490" as="sourcePoint"/>
+                        <mxPoint x="270" y="410" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="370" y="596"/>
+                            <mxPoint x="370" y="383"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="dJf0DmdQW_vubxnHisxw-24" value="Layers added by&lt;br&gt;bar image&lt;br&gt;maintainers" style="edgeLabel;resizable=0;html=1;align=center;verticalAlign=middle;strokeColor=#FF6666;fillColor=none;fontColor=#009999;labelBorderColor=#009999;spacing=2;spacingLeft=0;spacingRight=0;spacingBottom=0;spacingTop=0;" parent="dJf0DmdQW_vubxnHisxw-23" connectable="0" vertex="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="dJf0DmdQW_vubxnHisxw-26" value="&lt;font style=&quot;font-size: 12px&quot;&gt;&lt;b&gt;Dockerfile for foo image&lt;br&gt;&lt;/b&gt;&lt;br&gt;&lt;font face=&quot;Lucida Console&quot;&gt;FROM ubuntu:22.04&lt;/font&gt;&lt;br&gt;&lt;font face=&quot;Lucida Console&quot;&gt;ADD&amp;nbsp; file3&amp;nbsp; /file3&lt;/font&gt;&lt;br&gt;&lt;/font&gt;" style="text;strokeColor=#666666;fillColor=#f5f5f5;spacing=0;spacingTop=0;overflow=hidden;rounded=0;whiteSpace=wrap;html=1;spacingLeft=10;fontColor=#333333;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="410" y="530" width="240" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="dJf0DmdQW_vubxnHisxw-27" value="" style="rounded=0;whiteSpace=wrap;html=1;labelBorderColor=#B266FF;fontColor=#B266FF;strokeColor=#00994D;strokeWidth=2;fillColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="416" y="579" width="227" height="14" as="geometry"/>
+                </mxCell>
+                <mxCell id="dJf0DmdQW_vubxnHisxw-28" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#B266FF;strokeWidth=2;fontColor=#B266FF;" parent="1" vertex="1">
+                    <mxGeometry x="416" y="565" width="227" height="12" as="geometry"/>
+                </mxCell>
+                <mxCell id="dJf0DmdQW_vubxnHisxw-29" value="" style="endArrow=none;html=1;rounded=0;strokeColor=#B266FF;strokeWidth=2;fontColor=#B266FF;endFill=0;exitX=0.999;exitY=0.414;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" source="dJf0DmdQW_vubxnHisxw-28" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="660" y="571" as="sourcePoint"/>
+                        <mxPoint x="670" y="265.5" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="670" y="570"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="dJf0DmdQW_vubxnHisxw-32" value="" style="endArrow=none;html=1;rounded=0;strokeColor=#00994D;strokeWidth=2;exitX=1;exitY=0.5;exitDx=0;exitDy=0;fontColor=#B266FF;endFill=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="dJf0DmdQW_vubxnHisxw-27" target="dJf0DmdQW_vubxnHisxw-12" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="690" y="521" as="sourcePoint"/>
+                        <mxPoint x="740" y="340" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="740" y="586"/>
+                            <mxPoint x="740" y="318"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="dJf0DmdQW_vubxnHisxw-33" value="Layers added by&lt;br&gt;foo image&lt;br&gt;maintainers" style="edgeLabel;resizable=0;align=center;verticalAlign=middle;strokeColor=#FF6666;fillColor=none;fontColor=#00994D;labelBorderColor=#00994D;spacing=2;spacingLeft=0;spacingRight=0;spacingBottom=0;spacingTop=0;html=1;" parent="dJf0DmdQW_vubxnHisxw-32" connectable="0" vertex="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint y="64" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="MGoHs6cNIiesZB_WKk6I-1" value="&lt;b&gt;&lt;u&gt;bar image&lt;br&gt;&lt;/u&gt;&lt;/b&gt;– Built by bar image maintainers in your organization.&lt;br&gt;– 3 image layers come from foo base image.&lt;br&gt;– 2 image layers added by bar image maintainers." style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="40" y="80" width="320" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="MGoHs6cNIiesZB_WKk6I-4" value="&lt;b&gt;&lt;u&gt;foo image&lt;br&gt;&lt;/u&gt;&lt;/b&gt;– Built by foo image maintainers in your organization.&lt;br&gt;– 2 image layers come from ubuntu base image.&lt;br&gt;– 1 image layer added by foo image maintainers." style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="400" y="80" width="320" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="MGoHs6cNIiesZB_WKk6I-5" value="&lt;b&gt;&lt;u&gt;ubuntu image&lt;br&gt;&lt;/u&gt;&lt;/b&gt;– NOT built by maintainers in your organization.&lt;br&gt;– The ubuntu image was IMPORTED from an external registry&lt;br&gt;to your organization's internal registry.&lt;br&gt;– Thus, the image (and all its layers) are imported from an external source." style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="760" y="85" width="420" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="2" value="All layers created by&lt;br&gt;external upstream Ubuntu&lt;br&gt;image maintainers." style="edgeLabel;resizable=0;align=center;verticalAlign=middle;strokeColor=#FF6666;fillColor=none;fontColor=#CC6600;labelBorderColor=#CC6600;spacing=2;spacingLeft=0;spacingRight=0;spacingBottom=0;spacingTop=0;html=1;" connectable="0" vertex="1" parent="1">
+                    <mxGeometry x="1040" y="480.0019866721108" as="geometry"/>
+                </mxCell>
+                <mxCell id="3" value="" style="endArrow=none;html=1;strokeWidth=2;strokeColor=#CC6600;rounded=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" target="dJf0DmdQW_vubxnHisxw-15">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="1040" y="460" as="sourcePoint"/>
+                        <mxPoint x="970" y="280" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="1040" y="252"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
