@@ -149,7 +149,7 @@ The provenance schema will attest build provenance facts for each layer of a con
 * The schema is an array of SLSA Provenance Statements.
 * Each JSON array element below attests build provenance facts **for a single layer only**.
 
-```json
+```
 [
   {
   // Provenance statement attesting the build provenance of layer 1
