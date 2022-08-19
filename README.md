@@ -140,7 +140,7 @@ The following provenance information is needed for images to ensure rapid vulner
     * For example, knowing the exact Dockerfile provenance, a bot can patch `RUN pip install pkg-vuln-version` into `RUN pip install pkg-patched-version`.
 * The exact build context (build ID, build pipeline name, build pipeline URI) that generated each image filesystem layer.
 
-### Proposed Format
+### Proposed Provenance Document Format
 
 The proposal is to generate an In-Toto v0.1 SLSA Provenance v0.2 statement.
 
@@ -262,7 +262,7 @@ The provenance schema will attest build provenance facts for each layer of a con
 ]
 ```
 
-### Proposed Storage Format
+### Proposed Provenance Document Storage Guidelines
 
 This statement will be attached as an [ORAS Reference Artifact](https://oras.land/cli/6_reference_types/) to the image and stored within the same registry and repository.
 Storing it at the same location as the image allows (1) easy inspection of image provenance and (2) seamless experience during vulnerability investigations.
@@ -270,7 +270,7 @@ Storing it at the same location as the image allows (1) easy inspection of image
 ![](./docs/media/readme/image-layer-provenance-document-stored-as-oras-reference-artifact.drawio.png)
 
 
-### Organizational-Wide Provenance
+### Proposed Organizational-Wide Provenance Guidelines
 
 A layer history provenance document will be attached to every image within the organization's registries.
 
