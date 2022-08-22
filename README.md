@@ -96,7 +96,7 @@ For more info on the current limitations of (1) image history and (2) vulnerabil
 * The builds for `aspnet` and `myapp` images need to be kicked off afterwards so that the patched layer is pulled and used during the build.
 * Again, this is **not possible** due to the image history format not differentiating base image layers and additional layers added by Dockerfile instructions.
 
-![](./docs/media/readme/layer-history-foo-bar-ubuntu-imported-image.drawio.png)
+![](./docs/media/readme/layer-history-myapp-aspnet-mariner-scratch-image-vuln-in-mariner.drawio.png)
 
 -----
 
