@@ -280,6 +280,14 @@ If the base OS image is imported from an external registry (imported from extern
 
 ![](./docs/media/readme/layer-history-foo-bar-ubuntu-imported-image-with-provenance.drawio.png)
 
+### Customers and Consumers of the Provenance Documents
+
+#### Primary Target Consumer
+
+To limit the scope of this spec in tackling the main problem (generating actionable vulnerability scan reports), the primary consumer/customers of the provenance document will be image vulnerability scanners.
+
+Image vulnerability scanners (such as Qualys, Trivy, etc.) will make use of these documents in generating actionable reports.
+
 ### Examples of the Proposed Formats
 
 Please check out the [examples](./examples/) directory.
