@@ -280,14 +280,6 @@ If the base OS image is imported from an external registry (imported from extern
 
 ![](./docs/media/readme/layer-history-foo-bar-ubuntu-imported-image-with-provenance.drawio.png)
 
-### Customers and Consumers of the Provenance Documents
-
-#### Primary Target Consumer
-
-To limit the scope of this spec in tackling the main problem (generating actionable vulnerability scan reports), the primary consumer/customers of the provenance document will be image vulnerability scanners.
-
-Image vulnerability scanners (such as Qualys, Trivy, etc.) will make use of these documents in generating actionable reports.
-
 ### Examples of the Proposed Formats
 
 Please check out the [examples](./examples/) directory.
@@ -297,6 +289,121 @@ For each example in the examples directory, the following is showcased:
 * The OCI Image Manifest JSON of the image.
 * The limited layer history of the image (obtained from `docker image history` output).
 * The SLSA Provenance document that details the FULL layer history and provenance for each layer of the image (filename: `oci-image-manifest-layer-history-slsa.json` within each example directory).
+
+## Provenance Document Consumer
+
+### Primary Target Consumer
+
+To limit the scope of this spec in tackling the main problem (generating actionable vulnerability scan reports), the primary consumer/customers of the provenance document will be image vulnerability scanners (Qualys, Trivy, Registry Vulnerability Scanners).
+
+When a vulnerability is found, scanners detect and identify in which image layer was the vulnerability added/modified.
+(1) Each image layer has a unique hash and (2) the document format shows the provenance for each layer based on the unique hash.
+
+Because of this, vulnerability scanners can use the unique hash to augment vulnerability reports with provenance information to make scan results actionable.
+
+Current vulnerability scanners present information such as the following example:
+
+```
+Vulnerability Name: Ubuntu Security Notification for Sqlite3 Vulnerabilities (USN-2698-1)
+
+Vulnerable Package Information:
+{
+  "VulnerablePackages": [
+    {
+      "name": "libsqlite3-0",
+      "installedVersion": "3.8.2-1ubuntu2",
+      "requiredVersion": "3.8.2-1ubuntu2.1"
+    }
+  ]
+}
+
+Layer information where the vulnerable package was introduced:
+
+{
+ "packageMapping": [
+    {
+      "packageName": "libsqlite3-0",
+      "packageVersion": "3.8.2-1ubuntu2",
+      "layers": [
+        {
+          "layerId": 1,
+          "layerHash": "fef0f9958347a4b3c846fb8ea394fbcc554ec5440c7ec72b09786230d55ccc03",
+          ^^^ Unique layer hash digest
+          ^^^ (1) no indication if this layer came from a base image
+                  or from newly-added layers on top of base image.
+          ^^^ (2) IF it came from a base image, no info on
+                  the base image's registry url, repo, digest.
+                  Also no indication if the base image was
+                  externally-imported from another registry,
+                  or was built by another team within an
+                  organization.
+          ^^^ (3) IF it came from an additional Dockerfile-cmd,
+                  no info on code url, commit, Dockerfile path,
+                  Dockerfile line numbers, etc.
+          "layerCommand": "ADD file:0a5fd3a659be172e86491f2b94fe4fcc48be603847554a6a8d3bbc87854affec in /"
+        }
+                           ^^^ (1) no indication if this instruction
+                                   was from a base-image's Dockerfile or the image's own Dockerfile.
+                           ^^^ (2) the Dockerfile cmd is mangled.
+      ]
+    }
+  ]
+}
+```
+
+With information in the provenance document, an following actionable report, such as the following example (just an example – not part of the spec) can be generated:
+
+```
+Vulnerability Name: Ubuntu Security Notification for Sqlite3 Vulnerabilities (USN-2698-1)
+
+Vulnerable Package Information:
+{
+  "VulnerablePackages": [
+    {
+      "name": "libsqlite3-0",
+      "installedVersion": "3.8.2-1ubuntu2",
+      "requiredVersion": "3.8.2-1ubuntu2.1"
+    }
+  ]
+}
+
+Layer information where the vulnerable package was introduced:
+
+{
+ "packageMapping": [
+    {
+      "packageName": "libsqlite3-0",
+      "packageVersion": "3.8.2-1ubuntu2",
+      "layers": [
+        {
+          "layerId": 1,
+          "layerHash": "fef0f9958347a4b3c846fb8ea394fbcc554ec5440c7ec72b09786230d55ccc03",
+          "layerCommand": "ADD vulnerable-binary in /",
+                           ^^^ unmangled history
+          // additional provenance:
+          "layer-provenance": {
+            "origin": "inherited from base image" OR "newly-added layer from Dockerfile instruction",
+            "base-image": null OR "example-registry.com/repo@digest",
+            "Dockerfile instruction": "FROM abc.io/image@digest" or "COPY a /a" ...,
+            "Dockerfile source": {
+              "url": "repo.com/org/code-repository/tree/main/Dockerfile",
+              "commit": "commit-sha",
+              "Dockerfile line numbers": "3-4",
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
+```
+
+### Secondary Target Consumer
+
+Secondary consumers of this document are image builders, image maintainers, or whoever is responsible within an organization to respond to vulnerability scan results.
+These users are some of the consumers of scan results.
+
+By augmenting vulnerability scan results with actionable information, these secondary consumers will benefit.
 
 ### Proof of Concept CLI Tool
 
@@ -332,3 +439,16 @@ image-layer-dockerfile-history \
 ```
 
 See [`./scripts/generate-history-all-examples.sh`](./scripts/generate-history-all-examples.sh) for more examples on Proof of Concept CLI usage.
+
+## Next Steps
+
+### For Issues or Suggestions
+
+Please open a GitHub issue.
+
+### Pending Items
+
+* Determine the exact ORAS Artifact Type for the provenance document.
+* Should layer provenance be stored as:
+  1. an array of SLSA Layer Provenance all within a single ORAS artifact?
+  2. separate SLSA Layer Provenance ORAS artifacts for each layer?
