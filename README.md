@@ -2,127 +2,94 @@
 
 ## Target Audience
 
-This is for you if you are:
+Scanning images turns up an **overwhelming** number of vulnerabilities.
+Image maintainers and vulnerability responders are only interested in **actionable** vulnerabilities and want to differentiate alerts between:
 
-* A container image maintainer who frequently needs to fix image vulnerabilities found by scanners.
-* Someone overwhelmed by image vulnerability scan results.
-  * Scanning images turns up a lot of vulnerabilities.
-  * A lot of vulnerabilities are **unactionable**, such as vulnerabilities in a base OS image that doesn't have a fix yet.
-* A vulnerability responder who cannot determine "ownership" for fixing a detected vulnerability.
-  * Current container image formats and vulnerability scan reports do not show the "provenance" (origin) of a vulnerable package (i.e., "how" a vulnerable package got into the image).
-  * Complex CI/CD pipelines, multiple build engineering systems, and distributed teams are present in today's IT landscape.
-  Without vulnerability provenance (origin information), responders and maintainers cannot determine which build step, repo, specific Dockerfile, or team introduced the vulnerability.
-* An image maintainer or vulnerability responder that is only interested in **actionable** vulnerabilities. Image builders want to differentiate vulnerability alerts between the following 2 types:
-    1. Vulnerabilities from base images – These require coordination with upstream base image maintainers for them to deliver a patched base image.
-    2. Vulnerabilities from new layers introduced by the image builders – These can be immediately remediated and the fix can be rolled out.
+* Actionable for vulnerabilities the user can actually fix in their layers, such as vulnerabilities introduced through Dockerfile `ADD, RUN, or COPY` instructions.
+* Vulnerabilities in dependent base image layers requiring further action, such as (1) patching the base image, and (2) rebuilding to pull the patched dependencies.
+
+Additionally, current container image formats and vulnerability scan reports do not show the "provenance" (origin) of a vulnerable package (i.e., "how" a vulnerable package got into the image).
+
+* Complex CI/CD pipelines, multiple build engineering systems, and distributed teams are present in today's IT landscape.
+* Without vulnerability provenance (origin), responders and maintainers cannot easily determine which build step, repo, specific Dockerfile instruction, or team introduced the vulnerability.
 
 ## Problem
 
-### Container Image History Limitations Prevent Fixing Vulnerabilities at Source of Origin
+### Missing Build Provenance
 
-Image vulnerabilities have to be fixed at their source of origin.
-However, there are limitations in the container image format and image build history that prevents this.
+Image vulnerabilities have to be fixed at their source of origin before propagating to downstream dependencies.
 
-Image maintainers face (1) image format limitations, (2) image history obfuscation, and (3) lack of image build provenance.
-
-Due to lack of image build provenance, when vulnerability scanners detect a vulnerability within a container image, scanners **cannot** determine the vulnerability's source of origin.
+Due to lack of image build provenance, vulnerability scanners and human investigators **cannot** easily determine an image vulnerability's source of origin.
 Simple answers such as the following cannot be reported in vulnerability scan reports:
 
-* Did the vulnerability come from a base image?
+* Did the vulnerability come from layers the user introduced, or one of the base images referenced in a FROM statement?
 * Is a patched base image available?
-* If the vulnerability did not come from a base image, was the vulnerability introduced through one of my repositories or Dockerfile instructions?
-* Which exact Dockerfile instruction (`RUN pip install vuln-pkg`, `ADD vuln-pkg`) introduced the vulnerability to my container image?
-* A container image "layer" is just a "filesystem diff" (such as a filesystem addition/modification).
-Which exact image layer and its associated Dockerfile instruction introduced/added the vulnerability to the image?
+* If the vulnerability did not come from a base image, was it from layers the user introduced through their own Dockerfile instructions such as `RUN, ADD, or COPY`?
+If so, which **exact** Dockerfile instruction (such as `COPY vuln-pkg ...`) introduced the vulnerability and created the layer?
 
-### Vulnerability Scanners for Container Images – Current Limitations
+### Limitations of Vulnerability Scan Reports
 
 Vulnerability scanners for container images detect vulnerabilities in OS components (ex. Ubuntu/RHEL packages & binaries) and programming language dependencies (ex. npm/pip packages).
-To fix the vulnerability, image builders need to know the exact layer and exact Dockerfile instruction that introduced the vulnerability to the filesystem.
 
 Due to current limitations in the container image format, scanners can only report the layer that introduced the vulnerability.
-It cannot report the exact Dockerfile instruction that created the layer and introduced the vulnerability.
+However, scanners cannot report whether the layer came from base images referenced in a FROM statement, and if so, the image ref of the base image.
 
-Without knowing (1) the exact origin of layers and (2) the exact Dockerfile instruction that introduced vulnerable packages, maintainers cannot deliver a timely fix.
+Scanners also cannot report whether the user's own Dockerfile instructions introduced the layer, and if so, the exact code repo url, git ref, Dockerfile, and Dockerfile instructions that created the layer.
 
-### Detailed Background and Examples of Current Limitations
+Without knowing (1) the exact origin of layers or (2) the exact Dockerfile instruction that introduced vulnerable packages, maintainers cannot deliver a timely fix.
 
-For more info on the current limitations of (1) image history and (2) vulnerability scan reports, see [Current Limitations in Container Image Vulnerability Experience](./docs/current-limitations.md).
+### Additional Info on Current Limitations
+
+Please see [Current Limitations in Container Image Vulnerability Experience](./docs/current-limitations.md).
+
+## Scope
+
+The concept of "Dockerfiles", "base images", and "multi-stage builds" are specific to images from buildkit/Dockerfile-originating builds.
+These concepts and dependency semantics are buildkit/Dockerfile-specific, not in [OCI Images](https://github.com/opencontainers/image-spec).
+
+Other OCI-compliant container images built from other tools may not utilize dependency semantics such as "multi-stage builds", "base images", or "Dockerfiles" to build an image.
+However, images originating from buildkit/Dockerfiles are still the most common.
+
+This image vulnerability provenance spec will cover all image build types, including images from non-buildkit/Dockerfile originating builds.
 
 ## Scenarios
 
-### **Context: All images are built from source within an organization. No externally imported base images.**
-
-* Suppose there are 3 images in an organization's registry.
-* All 3 images are built by the organization's engineering teams and stored within the organization's registry.
-* There are no externally imported base images or base images not built within the organization.
-
-![](./docs/media/readme/layer-history-myapp-aspnet-mariner-scratch-image.drawio.png)
-
------
-
 **Scenario 1: Suppose the `myapp` image is scanned and a vulnerable package is detected in layer `digest: sha256:5e5e`. All images are built within the organization; no externally imported images.**
 
-* Vulnerability responders need to know the exact build step and file location that introduced the vulnerability.
-* The vulnerability provenance (origin) is from `myapp` image's own Dockerfile.
-  * The vulnerability was introduced in newly added layers caused by the Dockerfile's own instructions.
-  * In other words, the vulnerability was not inherited from base image layers.
-* As such, the fix should be addressed in the `myapp` image and Dockerfile repo.
-* This experience is **not possible** today because the image history format does not store the original/preserved Dockerfile instructions.
+From the diagram, the layer containing the vulnerability (layer `digest: sha256:5e5e`) was created by the `myapp` image's Dockerfile instruction (specifically, `COPY file5 /file5` introduced the vulnerability).
+
+**Vulnerability scanners CANNOT pinpoint the exact Dockerfile source (code repo, git ref, Dockerfile instructions) that created the layer.**
+
+This is **not possible** today because the image history format (which scanners rely on) does not contain build context such as:
+
+* the original/preserved Dockerfile instructions
+* the Dockerfile source (code repo, git ref, Dockerfile instruction)
+* the entity (producer ID, pipeline ID, etc.) that built tha layer
 
 ![](./docs/media/readme/layer-history-myapp-aspnet-mariner-scratch-image-vuln-in-myapp.drawio.png)
 
 -----
 
-**Scenario 2: Suppose `myapp` image is scanned again, and a vulnerable package is detected in layer `digest: sha256:3c3c`. All images are built within the organization; no externally imported images.**
+**Scenario 2: Suppose `myapp` image is scanned again, and a vulnerable package is detected in layer `digest: sha256:1a1a`. All images are built within the organization; no externally imported images.**
 
-* The vulnerability was not introduced in `myapp` image's Dockerfile.
-* Instead, the vulnerability was introduced through inheriting the layer (containing the vulnerability) from the `aspnet` base image.
-* As such, the fix should be addressed in the `aspnet` base image and `aspnet`'s Dockerfile repo.
-* The build for `myapp` needs to be kicked off afterwards so that the patched `aspnet` base image is pulled and used during the build.
-* This experience is **not possible** today because:
-  * There is no indication in image layer history whether a vulnerable layer was inherited from a base image.
-  * There is no information in the image format indicating the digest of the base image where the vulnerable layers were inherited from.
+From the diagram, the layer containing the vulnerability (layer `digest: sha256:1a1a`) originates from the `mariner` base image.
 
-![](./docs/media/readme/layer-history-myapp-aspnet-mariner-scratch-image-vuln-in-aspnet.drawio.png)
+**Due to limitations in image history format, the vulnerability report for the `myapp` image is NOT able to express that the vulnerability originated from the base image and display the layer's originating base image ref.**
 
------
-
-**Scenario 3: Suppose `myapp` image is scanned again, and a vulnerable package is detected in layer `digest: sha256:1a1a`. All images are built within the organization; no externally imported images.**
-
-* The source of origin of the vulnerability is in the `mariner` base image.
-* The vulnerability also exists in the `aspnet` and `myapp` images because they inherit the layer (containing the vulnerability).
-* As such, the fix should be addressed in the `mariner` base image and `mariner`'s Dockerfile repo.
-* The builds for `aspnet` and `myapp` images need to be kicked off afterwards so that the patched layer is pulled and used during the build.
-* Again, this is **not possible** due to the image history format not differentiating base image layers and additional layers added by Dockerfile instructions.
+This is **not possible** today because the image history format (which scanners rely on) does not indicate whether a layer originates from a base image or store the base image ref.
 
 ![](./docs/media/readme/layer-history-myapp-aspnet-mariner-scratch-image-vuln-in-mariner.drawio.png)
 
 -----
 
-### **Context: Some images are built within the organization. However, some base images are imported from an external registry and not built by the organization's maintainers.**
+**Scenario 3: Suppose `bar` image is scanned, and a vulnerable package is detected in layer `digest: sha256:1a1a`. The base OS image is imported from an external registry and not built internally.**
 
-* Suppose there are 3 images in an organization's registry.
-* 2 of the images are built by the organization's engineering teams and stored within the organization's registry.
-* 1 image (the base OS image) is built by external upstream maintainers.
-This image is imported from an external registry to the organization's internal registry.
-* Organizations do this because they may not have access to the source code of the base OS images.
-However, they still want to cache the image in their internal registry (by importing the image from the external registry).
-* Downstream images are built on top of this internal registry cache image.
+From the diagram, the layer containing the vulnerability (layer `digest: sha256:1a1a`) originates from the `ubuntu` base image.
 
-![](./docs/media/readme/layer-history-foo-bar-ubuntu-imported-image.drawio.png)
+This `ubuntu` base image was not built internally.
+It was imported from an external registry (such as `docker.io/library/ubuntu`) and cached in an internal registry.
 
----
-
-**Scenario 4: Suppose `myapp` image is scanned, and a vulnerable package is detected in layer `digest: sha256:1a1a`. The base OS image is imported from an external registry and not built internally.**
-
-* The source of origin of the vulnerability is in the upstream `ubuntu` base image.
-This image was not built internally.
-It was imported from an external registry.
-* The organization needs to coordinate with upstream `ubuntu` base image maintainers for them to deliver a patched base image.
-* Afterwards, the builds for `foo` and `bar` images have to be kicked off again so that the patched layer from the base image is pulled and used during the build.
-* This is also **not possible** because there is no build provenance indicating which external registry and digest the base image layers came from.
-There is also no infromation indicating whether a registry image was imported from an external registry (i.e., no record to indicate the image came externally).
+**Due to limited image history format, the vulnerability report for the `myapp` image is NOT able to express that the vulnerability originated from the base image and display the layer's originating base image ref.**
 
 ![](./docs/media/readme/layer-history-foo-bar-ubuntu-imported-image-vuln-in-ubuntu.drawio.png)
 
@@ -139,10 +106,11 @@ The following provenance information is needed for images to ensure rapid vulner
   * Knowing the exact Dockerfile location, automated Dockerfile patch tools (such as Dependabot or Renovate Bot) will be able to patch vulnerable Dockerfile instructions.
     * For example, knowing the exact Dockerfile provenance, a bot can patch `RUN pip install pkg-vuln-version` into `RUN pip install pkg-patched-version`.
 * The exact build context (build ID, build pipeline name, build pipeline URI) that generated each image filesystem layer.
+* The entity (producer ID, builder ID, etc.) that is responsible for the vulnerabilities and lifecycle of the image.
 
 ### Proposed Provenance Document Format
 
-The proposal is to generate an In-Toto v0.1 SLSA Provenance v0.2 statement.
+The proposal is to generate an In-Toto v0.1 Statement with a SLSA Provenance v0.2 Predicate.
 
 The provenance schema will attest build provenance facts for each layer of a container image.
 
@@ -171,11 +139,11 @@ The provenance schema will attest build provenance facts for each layer of a con
       "buildType": "URI indicating what type of build was performed. E.g. dockerfile-build",
       "invocation": {
         "configSource": {
-          "uri": "URI to Git repo of Dockerfile. Describes where the Dockerfile that kicked off the build came from. URI indicating the identity of the source of the Dockerfile. E.g. https://www.github.com/example/reponame/blob/master/Dockerfile",
+          "uri": "URI to Git repo of image's build source. For example, for Dockerfile builds, this describes where the Dockerfile that kicked off the build came from. E.g. https://www.github.com/example/reponame/blob/master/Dockerfile". For non-Dockerfile builds, this is a Git URL to the image build source (Bazel image config, ko image config, etc.),
           "digest": {
             "commit": "Git commit SHA that kicked off the image build."
           },
-          "entryPoint": "Path to Dockerfile in the repo."
+          "entryPoint": "Path to image build source in the repo (such as path/to/Dockerfile or path/to/bazel-cfg)."
         },
         "parameters": {
           "LayerHistory": {
@@ -184,30 +152,42 @@ The provenance schema will attest build provenance facts for each layer of a con
               "digest": "Layer digest, such as sha256:1efc27...",
               "size": 31366757 // layer size
             },
-            "LayerCreationType": "LayerType",
-            // LayerType can be one of the following:
-            // FROM-PrimaryBaseImageLayer          // for layers inherited from base image layers
-            // COPY-FromMultistageBuildStageLayer  // for layers created through `COPY --from` multistage build stages
-            // COPY-CommandLayer                   // for layers created through a plain COPY instruction
-            // ADD-CommandLayer                    // for layers created by the ADD instruction
-            // RUN-CommandLayer                    // for layers created by the RUN instruction
-            "DockerfileCommands": [
-              {
-                "Cmd": "The Dockerfile instruction command, such as FROM, ADD, COPY, RUN, etc.",
-                "SubCmd": "",
-                "Json": false,
-                "Original": "The original instruction in source, such as 'FROM docker.io/library/postgres:14-bullseye'",
-                "StartLine": 30, // the original source line number that starts this command)
-                "EndLine": 30,   // the original source line number that ends this command)
-                "Flags": [],     // Any flags such as `--from=...` for multistage `COPY` commands.)
-                "Value": [       // The contents of the command, such as 'registry/repository:digest' for the FROM command)
-                  "docker.io/library/postgres:14-bullseye"
-                ]
+            "LayerCreationType": "Dockerfile/BuildKit, Bazel, ko, etc.",
+            "LayerCreationParameters": {
+            // LayerCreationParameters contains layer creation metadata specific to the build type.
+            // For example, for Dockerfile/BuildKit originating builds, it contains the following:
+              "DockerfileLayerCreationType": "...",
+              // DockerfileLayerCreationType can be one of the following:
+              // FROM-PrimaryBaseImageLayer          // for layers inherited from base image layers
+              // COPY-FromMultistageBuildStageLayer  // for layers created through `COPY --from` multistage build stages
+              // COPY-CommandLayer                   // for layers created through a plain COPY instruction
+              // ADD-CommandLayer                    // for layers created by the ADD instruction
+              // RUN-CommandLayer                    // for layers created by the RUN instruction
+              "DockerfileCommands": [
+                {
+                  "Cmd": "The Dockerfile instruction command, such as FROM, ADD, COPY, RUN, etc.",
+                  "SubCmd": "",
+                  "Json": false,
+                  "Original": "The original instruction in source, such as 'FROM docker.io/library/postgres:14-bullseye'",
+                  "StartLine": 30, // the original source line number that starts this command)
+                  "EndLine": 30,   // the original source line number that ends this command)
+                  "Flags": [],     // Any flags such as `--from=...` for multistage `COPY` commands.)
+                  "Value": [       // The contents of the command, such as 'registry/repository:digest' for the FROM command)
+                    "docker.io/library/postgres:14-bullseye"
+                  ]
+                }
               }
             ],
             // If the layer was inherited from a base image layer, 'BaseImage' is populated with the base image reference.)
             "BaseImage": "docker.io/library/postgres:14-bullseye",
             "AttributionAnnotations": null
+            // AttributionAnnotations contains the entity responsible
+            // for the vulnerabilities associated with this layer.
+            // For example, if the layer came from a base image,
+            // then this contains the base image maintainer details.
+            // For example, if the layer was created from a Dockerfile
+            // instruction (not from a base image),
+            // then this contains the Dockerfile maintainer details.
           }
         }
       },
@@ -264,8 +244,10 @@ The provenance schema will attest build provenance facts for each layer of a con
 
 ### Proposed Provenance Document Storage Guidelines
 
-This statement will be attached as an [ORAS Reference Artifact](https://oras.land/cli/6_reference_types/) to the image and stored within the same registry and repository.
+This statement will be attached as an [OCI Reference Artifact](https://oras.land/cli/6_reference_types/) to the image and stored within the same registry and repository.
 Storing it at the same location as the image allows (1) easy inspection of image provenance and (2) seamless experience during vulnerability investigations.
+
+The `artifactType` is still to be determined pending discussions.
 
 ![](./docs/media/readme/image-layer-provenance-document-stored-as-oras-reference-artifact.drawio.png)
 
@@ -442,6 +424,12 @@ See [`./scripts/generate-history-all-examples.sh`](./scripts/generate-history-al
 
 ## Next Steps
 
+### Work Unlocked
+
+Vulnerability scanners and automated bots (like Dependabot, Renovate Bot) 
+
+### Parallel Work
+
 ### For Issues or Suggestions
 
 Please open a GitHub issue.
@@ -450,5 +438,5 @@ Please open a GitHub issue.
 
 * Determine the exact ORAS Artifact Type for the provenance document.
 * Should layer provenance be stored as:
-  1. an array of SLSA Layer Provenance all within a single ORAS artifact?
-  2. separate SLSA Layer Provenance ORAS artifacts for each layer?
+  1. an array of In-Toto Statements (containing SLSA Layer Provenance)all within a single ORAS artifact?
+  2. separate ORAS Artifacts for each layer's In-Toto Statement (containing SLSA Layer Provenance)?

@@ -22,37 +22,34 @@ IMAGE          CREATED          CREATED BY                                      
 
 The simple history from `docker image history` has the following problems:
 
-* There is no information that indicates (1) which layers came from base images or (2) which layers came from Dockerfile instructions built on top of base image layers.
+* There is no information that indicates (1) which layers came from base images referenced in `FROM` statements or (2) which layers came from Dockerfile instructions built on top of base image layers.
+* No information that maps from a layer digest to a base image ref (registry url, repo, tag, digest).
 * In certain cases, the Dockerfile instruction that created a layer is mangled, as seen in the `ADD file:<hash>` and `COPY dir:<hash>` history entries above.
 
 When a vulnerable package is detected, scanners report the following:
 
-* the layer in which a vulnerable package was introduced to the filesystem (ex. the layer created by `RUN pip install vuln-pkg`),
+* the layer hash in which a vulnerable package was introduced to the filesystem,
 * the Dockerfile instruction that created the layer, which in some cases (as seen above) is mangled/obfuscated or contains hashed values.
 
-Scan results contain noise and information gaps (as seen above), making scan results unactionable.
+Reporting only (1) a layer hash and (2) a mangled Dockerfile instruction is not actionable.
+With only these 2 pieces of limited information, maintainers cannot differentiate vulnerability alerts between:
 
-## Limitations of Vulnerability Scan Reports Due to Being Unactionable
+* Actionable for vulnerabilities the user can actually fix in their layers, such as vulnerabilities introduced through Dockerfile `ADD, RUN, or COPY` instructions.
+* Vulnerabilities in dependent base image layers requiring further action, such as (1) patching the base image, and (2) rebuilding to pull the patched dependencies.
+
+## Limitations of Vulnerability Scan Reports
 
 Vulnerability scanners typically output a long list of vulnerabilities when an image is scanned.
-A vulnerability report entry becomes unactionable if:
+Scanners typically make use of `docker image history` output when generating vulnerability provenance.
 
-* The vulnerability was introduced from an imported base image's layer.
-In other words, the vulnerability does not come from a Dockerfile instruction created on top of base image layers.
-  * The vulnerability report entry will point out the vulnerability's layer.
-  * However, there is no information indicating whether a layer comes from an imported base image or not.
-  * Teams need to manually investigate the vulnerable package and layer's origin.
-  * If it is from a base image layer, this type of vulnerability is unactionable because image builders need to wait for base image maintainers to deliver a fixed base image.
-* The vulnerability report entry contains the layer digest in which the vulnerability got introduced to the filesystem.
-However, it can contain a mangled/obfuscated Dockerfile instruction in its history (such as `COPY dir:<hash>` or `ADD file:<hash>`).
-This is because `docker image history` output (which scanners rely on) contains information gaps.
-  * Teams cannot use the obfuscated image history and mangled Dockerfile instruction to find the source of the vulnerability in the source Dockerfile.
-  * Teams need to manually investigate the package and layer's origin without making use of the obfuscated image and layer history.
+A vulnerability report becomes unactionable if it cannot differentiate vulnerabilities between (1) newly-introduced layers or (2) vulnerabilities from base image layers.
+It also becomes unactionable if it does not pinpoint the exact source of the vulnerability, requiring manual investigation to do so.
 
 Here is a sample vulnerability report that is unactionable due to information gaps in `docker image history` output:
 
 * The layer command is obfuscated (`ADD file:<hash>`), preventing image builders from identifying the exact layer and Dockerfile instruction which introduced the vulnerable package.
-* There is also no indication whether the layer comes from an imported base image's layers or not.
+* There is also no indication whether the layer comes from a base image.
+It also does not contain the layer's originating base image ref.
 
 ```
 Vulnerability Name: Ubuntu Security Notification for Sqlite3 Vulnerabilities (USN-2698-1)
