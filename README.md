@@ -106,7 +106,8 @@ The following provenance information is needed for images to ensure rapid vulner
   * Knowing the exact Dockerfile location, automated Dockerfile patch tools (such as Dependabot or Renovate Bot) will be able to patch vulnerable Dockerfile instructions.
     * For example, knowing the exact Dockerfile provenance, a bot can patch `RUN pip install pkg-vuln-version` into `RUN pip install pkg-patched-version`.
 * The exact build context (build ID, build pipeline name, build pipeline URI) that generated each image filesystem layer.
-* The entity (producer ID, builder ID, etc.) that is responsible for the vulnerabilities and lifecycle of the image.
+* The entity (producer ID, builder ID, maintainer email, etc.) that is responsible for the vulnerabilities and lifecycle of the image.
+  * This will allow vulnerability investigators to contact the responsible party for the fix.
 
 ### Proposed Provenance Document Format
 
@@ -247,10 +248,12 @@ The provenance schema will attest build provenance facts for each layer of a con
 This statement will be attached as an [OCI Reference Artifact](https://oras.land/cli/6_reference_types/) to the image and stored within the same registry and repository.
 Storing it at the same location as the image allows (1) easy inspection of image provenance and (2) seamless experience during vulnerability investigations.
 
-The `artifactType` is still to be determined pending discussions.
+Storing the provenance document at the same location (in the registry as an artifact) simplifies image import workflows, such as importing an image to an on-prem or airgapped cloud environment.
+All image importers would need to do is to import an image and its associated OCI referrer provenance documents.
+
+The `artifactType` of the referrer provenence document is still to be determined pending discussions.
 
 ![](./docs/media/readme/image-layer-provenance-document-stored-as-oras-reference-artifact.drawio.png)
-
 
 ### Proposed Organizational-Wide Provenance Guidelines
 
