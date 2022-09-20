@@ -15,28 +15,55 @@ Additionally, current container image formats and vulnerability scan reports do 
 
 ## Problem
 
+### Unable to Trace Vulnerabilities to Source
+
+Today's image build tools and CI/CD pipelines scan container images for vulnerabilities before, during, and after build.
+When there are no vulnerabilities, images are built and pushed to registries with passing scans.
+
+After the image is successfully built and pushed, a new CVE or vulnerability may be discovered days or weeks after the push. When the image (now in the registry) is scanned again, scanners would report the new vulnerability.
+
+However, due to missing build provenance metadata, the scanners are unable to trace vulnerabilities in registry images back to the source.
+The reported image vulnerability does not differentiate between:
+
+* actionable vulnerabilities the image maintainer can immediately fix, such as vulnerabilities in their own application code,
+* vulnerabilities from dependencies, such as base OS or language runtimes, requiring coordination with upstream dependencies for a fix.
+
+![](./docs/media/readme/green-during-image-build-but-red-in-container-registry.png)
+
 ### Missing Build Provenance
 
-Image vulnerabilities have to be fixed at their source of origin before propagating to downstream dependencies.
+Lack of build provenance in registry images prevent the following from being answered:
 
-Due to lack of image build provenance, vulnerability scanners and human investigators **cannot** easily determine an image vulnerability's source of origin.
-Simple answers such as the following cannot be reported in vulnerability scan reports:
-
-* Did the vulnerability come from layers the user introduced, or one of the base images referenced in a FROM statement?
+* Did the vulnerability come from application code layers the user introduced, or from one of the base images referenced in a FROM statement?
 * Is a patched base image available?
-* If the vulnerability did not come from a base image, was it from layers the user introduced through their own Dockerfile instructions such as `RUN, ADD, or COPY`?
-If so, which **exact** Dockerfile instruction (such as `COPY vuln-pkg ...`) introduced the vulnerability and created the layer?
+* If the vulnerability did not come from a base image, was it from application layers the user introduced through their own Dockerfile instructions such as `RUN, ADD, or COPY`?
+If so, which **exact** Dockerfile instruction (such as `COPY vuln-pkg ...` or `RUN pip install vuln-pkg`) introduced the vulnerability?
 
 ### Limitations of Vulnerability Scan Reports
 
 Vulnerability scanners for container images detect vulnerabilities in OS components (ex. Ubuntu/RHEL packages & binaries) and programming language dependencies (ex. npm/pip packages).
+Scanners also determine and report the exact container image layer a vulnerability was introduced.
 
-Due to current limitations in the container image format, scanners can only report the layer that introduced the vulnerability.
-However, scanners cannot report whether the layer came from base images referenced in a FROM statement, and if so, the image ref of the base image.
+However, current container image formats (including Docker images) and SBOMs do not include provenance metadata for dependencies and base images.
 
-Scanners also cannot report whether the user's own Dockerfile instructions introduced the layer, and if so, the exact code repo url, git ref, Dockerfile, and Dockerfile instructions that created the layer.
+![](./docs/media/readme/image-formats-and-sboms-no-build-provenance.png)
 
-Without knowing (1) the exact origin of layers or (2) the exact Dockerfile instruction that introduced vulnerable packages, maintainers cannot deliver a timely fix.
+This prevents scanners from tracing detected vulnerabilities and vulnerable layers in registry images back to source code. Missing accompanying provenance metadata prevents tracing back to the exact base image ref or Dockerfile line that introduced the vulnerability.
+
+### Limitations of SBOMs
+
+SBOMs list the entire list of binaries and packages present in a container image.
+
+However, they only map binaries/packages that are present in each image filesystem layer.
+They do not map binaries/packages to source of origin.
+
+It is possible to include build provenance in SBOMs, but that complicates SBOM schemas and contradicts an SBOM's purpose with regards to the Unix philosophy (each file format should do one thing, and do it well).
+An SBOM's purpose is to list contents, not be stuffed with a complicated schema that includes logic for source of origin.
+
+Having a purpose-built provenance document that maps image layer to source of origin simplifies the schema for SBOMs.
+It also ensures supply chain artifacts (both provenance documents and SBOMs) adhere to the Unix philosophy.
+
+![](./docs/media/readme/unix-philosophy-provenance-sbom.png)
 
 ### Additional Info on Current Limitations
 
@@ -44,13 +71,14 @@ Please see [Current Limitations in Container Image Vulnerability Experience](./d
 
 ## Scope
 
+This image vulnerability provenance spec will cover all image build types, including images from non-buildkit/Dockerfile originating builds.
+However, images originating from buildkit/Dockerfiles are still the most common.
+As such, examples illustrated in the repo are Dockerfile/buildkit-specific.
+
 The concept of "Dockerfiles", "base images", and "multi-stage builds" are specific to images from buildkit/Dockerfile-originating builds.
 These concepts and dependency semantics are buildkit/Dockerfile-specific, not in [OCI Images](https://github.com/opencontainers/image-spec).
 
 Other OCI-compliant container images built from other tools may not utilize dependency semantics such as "multi-stage builds", "base images", or "Dockerfiles" to build an image.
-However, images originating from buildkit/Dockerfiles are still the most common.
-
-This image vulnerability provenance spec will cover all image build types, including images from non-buildkit/Dockerfile originating builds.
 
 ## Scenarios
 
