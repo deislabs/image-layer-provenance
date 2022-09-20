@@ -399,7 +399,7 @@ This is a command-line tool that shows the _**exact**_ Dockerfile commands that 
 To install, run the following commands.
 
 ```bash
-curl -LO https://github.com/johnsonshi/image-manifest-layer-history/releases/download/v0.0.2/image-layer-dockerfile-history
+curl -LO https://github.com/johnsonshi/image-manifest-layer-history/releases/download/v0.0.3/image-layer-dockerfile-history
 chmod +x image-layer-dockerfile-history
 sudo mv image-layer-dockerfile-history /usr/local/bin
 ```
