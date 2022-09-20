@@ -153,15 +153,15 @@ func (opts *generateCmdOpts) writeManifestLayerHistory(manifestLayerHistory []hi
 		timeNow := time.Now()
 		for _, layerHistory := range manifestLayerHistory {
 			layerSlsaProvenance := slsa.ImageManifestLayerSlsaProvenance{
-				LayerHistory:                layerHistory,
-				BuilderID:                   "URI indicating the builder identity. E.g. pipeline-name",
-				BuildType:                   "URI indicating what type of build was performed. E.g. build-type-dockerfile-build",
-				BuildInvocationID:           "Globally Unique Build Invocation ID. Definition: Identifies this particular build invocation, which can be useful for finding associated logs or other ad-hoc analysis. The exact meaning and format is defined by builder.id; by default it is treated as opaque and case-sensitive. The value SHOULD be globally unique.",
-				BuildStartedOn:              &timeNow,
-				BuildFinishedOn:             &timeNow,
-				RepoURIContainingDockerfile: "URI to Git repo of Dockerfile. Describes where the config file that kicked off the build came from. URI indicating the identity of the source of the config. E.g. https://www.github.com/example/reponame/blob/master/Dockerfile",
-				RepoGitCommit:               "Git commit SHA that kicked off the build.",
-				RepoPathToDockerfile:        "Path to Dockerfile in the repo. Definition: String identifying the entry point into the build. This is often a path to a configuration file and/or a target label within that file. The syntax and meaning are defined by buildType. For example, if the buildType were “make”, then this would reference the directory in which to run make as well as which target to use.",
+				LayerHistory:                 layerHistory,
+				BuilderID:                    "Build pipeline URI.",
+				BuildType:                    "Type of image build, such as 'dockerfile-build', 'buildkit-build', 'bazel-build', etc.",
+				BuildInvocationID:            "Build pipeline ID number",
+				BuildStartedOn:               &timeNow,
+				BuildFinishedOn:              &timeNow,
+				RepoURIContainingImageSource: "URI to Git repo of image config. For Dockerfile builds, this is a git URI to the Dockerfile (e.g. github.com/org/repo/tree/main/Dockerfile)",
+				RepoGitCommit:                "Git commit SHA that kicked off the build.",
+				RepoPathToImageSource:        "Path to image config in the repo (e.g. path/to/Dockerfile)",
 			}
 			layerSlsaProvenanceStatement, err := layerSlsaProvenance.GetImageManifestLayerSlsaProvenance()
 			if err != nil {

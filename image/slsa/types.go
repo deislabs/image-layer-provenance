@@ -10,13 +10,13 @@ import (
 )
 
 type ImageManifestLayerSlsaProvenance struct {
-	LayerHistory                history.ImageManifestLayerDockerfileCommandsHistory `json:"LayerHistory"`
-	BuilderID                   string                                              `json:"BuilderID"`
-	BuildType                   string                                              `json:"BuildType"`
-	BuildInvocationID           string                                              `json:"BuildInvocationID"`
-	BuildStartedOn              *time.Time                                          `json:"BuildStartedOn"`
-	BuildFinishedOn             *time.Time                                          `json:"BuildFinishedOn"`
-	RepoURIContainingDockerfile string                                              `json:"RepoURIContainingDockerfile"`
-	RepoGitCommit               string                                              `json:"RepoGitCommit"`
-	RepoPathToDockerfile        string                                              `json:"RepoPathToDockerfile"`
+	LayerHistory                 history.ImageManifestLayerDockerfileCommandsHistory `json:"LayerHistory"`
+	BuilderID                    string                                              `json:"BuilderID"`
+	BuildType                    string                                              `json:"BuildType"`
+	BuildInvocationID            string                                              `json:"BuildInvocationID"`
+	BuildStartedOn               *time.Time                                          `json:"BuildStartedOn"`
+	BuildFinishedOn              *time.Time                                          `json:"BuildFinishedOn"`
+	RepoURIContainingImageSource string                                              `json:"RepoURIContainingImageSource"`
+	RepoGitCommit                string                                              `json:"RepoGitCommit"`
+	RepoPathToImageSource        string                                              `json:"RepoPathToImageSource"`
 }

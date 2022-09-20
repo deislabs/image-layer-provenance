@@ -169,6 +169,7 @@ The provenance schema will attest build provenance facts for each layer of a con
               //     COPY-CommandLayer --> created by a plain COPY command
               //     ADD-CommandLayer --> created by the ADD instruction
               //     RUN-CommandLayer --> created by the RUN instruction
+              "BaseImage": "null if not from a base image, else 'registry.io/base-image@digest'",
               "DockerfileCommands": [
                 {
                   "Cmd": "The Dockerfile instruction command, such as FROM, ADD, COPY, RUN, etc.",
@@ -176,19 +177,18 @@ The provenance schema will attest build provenance facts for each layer of a con
                   "Json": true|false, whether the instruction was written in JSON form,
                   "Original": "The original instruction in source, such as 'FROM docker.io/library/postgres:14-bullseye'",
                   "StartLine": 30,
-                  // original source line number that starts this command
+                  // * Original source line number that starts this command
                   "EndLine": 30,
-                  // the original source line number that ends this command
+                  // * The original source line number that ends this command
                   "Flags": [],
-                  // Any flags such as `--from=...` for multistage `COPY` commands.
+                  // * Any flags such as `--from=...` for multistage `COPY` commands.
                   "Value": [
-                  // The command's value args, e.g. for the FROM command: 'registry/repository:digest'.
+                  // * The command's value args, e.g. for the FROM command: 'registry/repository:digest'.
                     "docker.io/library/postgres:14-bullseye"
                   ]
                 }
               }
             ],
-            "BaseImage": "null if not from a base image, else 'registry.io/base-image@digest'",
             "AttributedEntity": {
             // AttributedEntity is a free-schema JSON-object for
             // maintainers to include attribution
@@ -320,12 +320,12 @@ Layer information where the vulnerable package was introduced:
         {
           "layerId": 1,
           "layerHash": "fef0f9958347a4b3c846fb8ea394fbcc554ec5440c7ec72b09786230d55ccc03",
-          // No indication whether the vulnerable package or layer
+          // * No indication whether the vulnerable package or layer
           //    was introduced by a dependent base image
           //    or from app code introduced by the image maintainer.
           "layerCommand": "ADD file:0a5fd3a659be172e86491f2b94fe4fcc48be603847554a6a8d3bbc87854affec in /"
-          // Mangled layer command history due to image history limitations.
-          // No indication whether the Dockerfile instruction
+          // * Mangled layer command history due to image history limitations.
+          // * No indication whether the Dockerfile instruction
           //    was from a base image's build instructions
           //    or from the maintainer's own
           //    image config directives (e.g. Dockerfile instructions).
@@ -364,7 +364,7 @@ Layer information where the vulnerable package was introduced:
           "layerId": 1,
           "layerHash": "fef0f9958347a4b3c846fb8ea394fbcc554ec5440c7ec72b09786230d55ccc03",
           "layerCommand": "ADD file:0a5fd3a659be172e86491f2b94fe4fcc48be603847554a6a8d3bbc87854affec in /"
-          // ADDITIONAL PROVENANCE GENERATED FROM IMAGE PROVENANCE DOC:
+          // * ADDITIONAL PROVENANCE GENERATED FROM IMAGE PROVENANCE DOC:
           "layerProvenance": {
             "origin": "FROM-base-image-cmd, COPY-cmd, ADD-cmd, RUN-cmd",
             "baseImage": null OR "registry.io/image@digest",

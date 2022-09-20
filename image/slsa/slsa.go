@@ -27,9 +27,9 @@ func (s *ImageManifestLayerSlsaProvenance) GetImageManifestLayerSlsaProvenance()
 			BuildType: s.BuildType,
 			Invocation: slsa.ProvenanceInvocation{
 				ConfigSource: slsa.ConfigSource{
-					URI:        s.RepoURIContainingDockerfile,
+					URI:        s.RepoURIContainingImageSource,
 					Digest:     slsa.DigestSet{"commit": s.RepoGitCommit},
-					EntryPoint: s.RepoPathToDockerfile,
+					EntryPoint: s.RepoPathToImageSource,
 				},
 				// NOTE: Invocation.Parameters is the only field that is customizable and allows for a custom JSON schema.
 				Parameters: map[string]interface{}{

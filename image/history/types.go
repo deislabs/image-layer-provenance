@@ -38,21 +38,26 @@ type ImageHistory struct {
 // LayerCreationType describes the type of layer creation.
 type LayerCreationType string
 
-// ImageManifestLayerDockerfileCommandsHistory describes the exact Dockerfile commands of an image manifest layer.
-type ImageManifestLayerDockerfileCommandsHistory struct {
-	LayerDescriptor        ocispec.Descriptor   `json:"LayerDescriptor"`
-	LayerCreationType      LayerCreationType    `json:"LayerCreationType"`
-	DockerfileCommands     []dockerfile.Command `json:"DockerfileCommands"`
-	BaseImageRef           string               `json:"BaseImage"`
-	AttributionAnnotations map[string]string    `json:"AttributionAnnotations"`
+// LayerCreationParameters describes the exact Dockerfile parameters used to create the image manifest layer.
+type LayerCreationParameters struct {
+	DockerfileLayerCreationType LayerCreationType    `json:"DockerfileLayerCreationType"`
+	DockerfileCommands          []dockerfile.Command `json:"DockerfileCommands"`
+	BaseImageRef                string               `json:"BaseImage"`
 }
 
-// SimplifiedImageManifestLayerDockerfileCommandsHistory describes the exact Dockerfile commands
+// ImageManifestLayerDockerfileCommandsHistory describes the exact Dockerfile history of an image manifest layer.
+type ImageManifestLayerDockerfileCommandsHistory struct {
+	LayerDescriptor         ocispec.Descriptor      `json:"LayerDescriptor"`
+	LayerCreationParameters LayerCreationParameters `json:"LayerCreationParameters"`
+	AttributedEntity        map[string]string       `json:"AttributedEntity"`
+}
+
+// SimplifiedImageManifestLayerDockerfileCommandsHistory describes the exact Dockerfile history
 // of an image manifest layer (simplified format).
 type SimplifiedImageManifestLayerDockerfileCommandsHistory struct {
-	LayerDigest            digest.Digest     `json:"LayerDigest"`
-	LayerCreationType      LayerCreationType `json:"LayerCreationType"`
-	DockerfileCommands     []string          `json:"DockerfileCommands"`
-	BaseImageRef           string            `json:"BaseImage"`
-	AttributionAnnotations map[string]string `json:"AttributionAnnotations"`
+	LayerDigest                 digest.Digest     `json:"LayerDigest"`
+	DockerfileLayerCreationType LayerCreationType `json:"DockerfileLayerCreationType"`
+	DockerfileCommands          []string          `json:"DockerfileCommands"`
+	BaseImageRef                string            `json:"BaseImage"`
+	AttributedEntity            map[string]string `json:"AttributedEntity"`
 }

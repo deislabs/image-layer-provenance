@@ -67,10 +67,13 @@ func (h *ImageHistory) getReversedImageManifestLayerDockerfileCommandsHistory(at
 
 			for ; imageManifestLayerIndex >= 0; imageManifestLayerIndex-- {
 				layerHistory := ImageManifestLayerDockerfileCommandsHistory{
-					LayerDescriptor:    h.ImageManifest.Layers[imageManifestLayerIndex],
-					LayerCreationType:  FROMPrimaryBaseImageLayer,
-					DockerfileCommands: h.DockerfileCommands[dockerfileCommandIndex : dockerfileCommandIndex+1],
-					BaseImageRef:       baseImageRef,
+					LayerDescriptor: h.ImageManifest.Layers[imageManifestLayerIndex],
+					LayerCreationParameters: LayerCreationParameters{
+						DockerfileLayerCreationType: FROMPrimaryBaseImageLayer,
+						DockerfileCommands:          h.DockerfileCommands[dockerfileCommandIndex : dockerfileCommandIndex+1],
+						BaseImageRef:                baseImageRef,
+					},
+					AttributedEntity: attributionAnnotations,
 				}
 				manifestLayerHistory = append(manifestLayerHistory, layerHistory)
 			}
@@ -166,11 +169,13 @@ func (h *ImageHistory) getReversedImageManifestLayerDockerfileCommandsHistory(at
 			baseImageRef := layerDockerfileCommands[0].Value[0]
 
 			layerHistory := ImageManifestLayerDockerfileCommandsHistory{
-				LayerDescriptor:        h.ImageManifest.Layers[imageManifestLayerIndex],
-				LayerCreationType:      COPYFromMultistageBuildStageLayer,
-				DockerfileCommands:     layerDockerfileCommands,
-				AttributionAnnotations: attributionAnnotations,
-				BaseImageRef:           baseImageRef,
+				LayerDescriptor: h.ImageManifest.Layers[imageManifestLayerIndex],
+				LayerCreationParameters: LayerCreationParameters{
+					DockerfileLayerCreationType: COPYFromMultistageBuildStageLayer,
+					DockerfileCommands:          layerDockerfileCommands,
+					BaseImageRef:                baseImageRef,
+				},
+				AttributedEntity: attributionAnnotations,
 			}
 
 			manifestLayerHistory = append(manifestLayerHistory, layerHistory)
@@ -199,10 +204,12 @@ func (h *ImageHistory) getReversedImageManifestLayerDockerfileCommandsHistory(at
 		}
 
 		layerHistory := ImageManifestLayerDockerfileCommandsHistory{
-			LayerDescriptor:        h.ImageManifest.Layers[imageManifestLayerIndex],
-			LayerCreationType:      layerCreationType,
-			DockerfileCommands:     h.DockerfileCommands[dockerfileCommandIndex : dockerfileCommandIndex+1],
-			AttributionAnnotations: attributionAnnotations,
+			LayerDescriptor: h.ImageManifest.Layers[imageManifestLayerIndex],
+			LayerCreationParameters: LayerCreationParameters{
+				DockerfileLayerCreationType: layerCreationType,
+				DockerfileCommands:          h.DockerfileCommands[dockerfileCommandIndex : dockerfileCommandIndex+1],
+			},
+			AttributedEntity: attributionAnnotations,
 		}
 
 		manifestLayerHistory = append(manifestLayerHistory, layerHistory)
@@ -367,16 +374,16 @@ func getSubstringContainsCaseInsensitive(haystack []string, substr string) strin
 func GetSimplifiedImageManifestLayerDockerfileCommandsHistory(manifestLayerHistory []ImageManifestLayerDockerfileCommandsHistory) []SimplifiedImageManifestLayerDockerfileCommandsHistory {
 	var simplified []SimplifiedImageManifestLayerDockerfileCommandsHistory
 	for _, h := range manifestLayerHistory {
-		var cmds []string
-		for _, c := range h.DockerfileCommands {
-			cmds = append(cmds, c.Original)
+		var concatenatedCmds []string
+		for _, c := range h.LayerCreationParameters.DockerfileCommands {
+			concatenatedCmds = append(concatenatedCmds, c.Original)
 		}
 		simplified = append(simplified, SimplifiedImageManifestLayerDockerfileCommandsHistory{
-			LayerDigest:            h.LayerDescriptor.Digest,
-			LayerCreationType:      h.LayerCreationType,
-			DockerfileCommands:     cmds,
-			BaseImageRef:           h.BaseImageRef,
-			AttributionAnnotations: h.AttributionAnnotations,
+			LayerDigest:                 h.LayerDescriptor.Digest,
+			DockerfileLayerCreationType: h.LayerCreationParameters.DockerfileLayerCreationType,
+			DockerfileCommands:          concatenatedCmds,
+			BaseImageRef:                h.LayerCreationParameters.BaseImageRef,
+			AttributedEntity:            h.AttributedEntity,
 		})
 	}
 	return simplified

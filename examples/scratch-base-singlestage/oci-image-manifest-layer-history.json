@@ -2,81 +2,87 @@
   {
     "LayerDescriptor": {
       "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
-      "digest": "sha256:1a85f3508e3cb242467d756a81bbd7e3f3ee1513cdc4271368c131b5b86b74d9",
-      "size": 1078285
+      "digest": "sha256:7942f3be722fa3927b29ccc51521f0f0d9b0b8979fc4148d3d94f05acc0bdf44",
+      "size": 1100327
     },
-    "LayerCreationType": "ADD-CommandLayer",
-    "DockerfileCommands": [
-      {
-        "Cmd": "ADD",
-        "SubCmd": "",
-        "Json": false,
-        "Original": "ADD https://github.com/kubernetes/client-go/archive/master.tar.gz /kubernetes/client-go.tar.gz",
-        "StartLine": 6,
-        "EndLine": 6,
-        "Flags": [],
-        "Value": [
-          "https://github.com/kubernetes/client-go/archive/master.tar.gz",
-          "/kubernetes/client-go.tar.gz"
-        ]
-      }
-    ],
-    "BaseImage": "",
-    "AttributionAnnotations": {
+    "LayerCreationParameters": {
+      "DockerfileLayerCreationType": "ADD-CommandLayer",
+      "DockerfileCommands": [
+        {
+          "Cmd": "ADD",
+          "SubCmd": "",
+          "Json": false,
+          "Original": "ADD https://github.com/kubernetes/client-go/archive/master.tar.gz /kubernetes/client-go.tar.gz",
+          "StartLine": 6,
+          "EndLine": 6,
+          "Flags": [],
+          "Value": [
+            "https://github.com/kubernetes/client-go/archive/master.tar.gz",
+            "/kubernetes/client-go.tar.gz"
+          ]
+        }
+      ],
+      "BaseImage": ""
+    },
+    "AttributedEntity": {
       "responsible_entity_id": "ID of the responsible entity that introduced non-base image layers. i.e. Entity ID of the Dockerfile Author. This denotes responsible entity for the new layers added on top of base image layers."
     }
   },
   {
     "LayerDescriptor": {
       "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
-      "digest": "sha256:2abe5b7faa26446fa715c905eafa1bf4dc9dd6250eba069726e11f6772cf8baa",
-      "size": 2722633
+      "digest": "sha256:5a2bf799221e80ef7d379a58541383020761546107861b322d0d30c34840c74e",
+      "size": 2727414
     },
-    "LayerCreationType": "ADD-CommandLayer",
-    "DockerfileCommands": [
-      {
-        "Cmd": "ADD",
-        "SubCmd": "",
-        "Json": false,
-        "Original": "ADD https://github.com/kubernetes/kubectl/archive/master.tar.gz /kubernetes/kubectl.tar.gz",
-        "StartLine": 12,
-        "EndLine": 12,
-        "Flags": [],
-        "Value": [
-          "https://github.com/kubernetes/kubectl/archive/master.tar.gz",
-          "/kubernetes/kubectl.tar.gz"
-        ]
-      }
-    ],
-    "BaseImage": "",
-    "AttributionAnnotations": {
+    "LayerCreationParameters": {
+      "DockerfileLayerCreationType": "ADD-CommandLayer",
+      "DockerfileCommands": [
+        {
+          "Cmd": "ADD",
+          "SubCmd": "",
+          "Json": false,
+          "Original": "ADD https://github.com/kubernetes/kubectl/archive/master.tar.gz /kubernetes/kubectl.tar.gz",
+          "StartLine": 12,
+          "EndLine": 12,
+          "Flags": [],
+          "Value": [
+            "https://github.com/kubernetes/kubectl/archive/master.tar.gz",
+            "/kubernetes/kubectl.tar.gz"
+          ]
+        }
+      ],
+      "BaseImage": ""
+    },
+    "AttributedEntity": {
       "responsible_entity_id": "ID of the responsible entity that introduced non-base image layers. i.e. Entity ID of the Dockerfile Author. This denotes responsible entity for the new layers added on top of base image layers."
     }
   },
   {
     "LayerDescriptor": {
       "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
-      "digest": "sha256:0402c11ac241081bf9436689c7edf830ffac0dc23ca78783b41f08ac7820d530",
-      "size": 21812730
+      "digest": "sha256:bef044d3345e7eef96b2658e006eb3761a621be5c069e559e975e98c154e5d0b",
+      "size": 22473758
     },
-    "LayerCreationType": "ADD-CommandLayer",
-    "DockerfileCommands": [
-      {
-        "Cmd": "ADD",
-        "SubCmd": "",
-        "Json": false,
-        "Original": "ADD https://github.com/kubernetes/dashboard/archive/master.tar.gz /kubernetes/dashboard.tar.gz",
-        "StartLine": 18,
-        "EndLine": 18,
-        "Flags": [],
-        "Value": [
-          "https://github.com/kubernetes/dashboard/archive/master.tar.gz",
-          "/kubernetes/dashboard.tar.gz"
-        ]
-      }
-    ],
-    "BaseImage": "",
-    "AttributionAnnotations": {
+    "LayerCreationParameters": {
+      "DockerfileLayerCreationType": "ADD-CommandLayer",
+      "DockerfileCommands": [
+        {
+          "Cmd": "ADD",
+          "SubCmd": "",
+          "Json": false,
+          "Original": "ADD https://github.com/kubernetes/dashboard/archive/master.tar.gz /kubernetes/dashboard.tar.gz",
+          "StartLine": 18,
+          "EndLine": 18,
+          "Flags": [],
+          "Value": [
+            "https://github.com/kubernetes/dashboard/archive/master.tar.gz",
+            "/kubernetes/dashboard.tar.gz"
+          ]
+        }
+      ],
+      "BaseImage": ""
+    },
+    "AttributedEntity": {
       "responsible_entity_id": "ID of the responsible entity that introduced non-base image layers. i.e. Entity ID of the Dockerfile Author. This denotes responsible entity for the new layers added on top of base image layers."
     }
   }
