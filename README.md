@@ -253,8 +253,25 @@ The provenance schema will attest build provenance facts for each layer of a con
     ],
     "predicateType": "https://slsa.dev/provenance/v0.2",
     "predicate": { (same layer provenance schema as above) } 
-  }
+  },
   // ...
+  // ...
+  // ...
+  // ...
+  {
+  // Provenance for image layer N.
+  // NOTE: The owner for the last layer is the owner of the overall image.
+  // This is because the overall image builder bakes in the last layer of a container image.
+    "_type": "https://in-toto.io/Statement/v0.1",
+    "subject": [
+      {
+        "name": "Digest of image layer N",
+        "digest": { "sha256": "Digest of image layer N" }
+      }
+    ],
+    "predicateType": "https://slsa.dev/provenance/v0.2",
+    "predicate": { (same layer provenance schema as above) } 
+  }
 ]
 ```
 
