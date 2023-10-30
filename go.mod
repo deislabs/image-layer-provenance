@@ -4,7 +4,7 @@ go 1.18
 
 require (
 	github.com/asottile/dockerfile v3.1.0+incompatible
-	github.com/docker/docker v20.10.17+incompatible
+	github.com/docker/docker v24.0.7+incompatible
 	github.com/in-toto/in-toto-golang v0.4.0-prerelease
 	github.com/opencontainers/go-digest v1.0.0
 	github.com/opencontainers/image-spec v1.0.3-0.20211202183452-c5a74bcca799
@@ -28,7 +28,6 @@ require (
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/secure-systems-lab/go-securesystemslib v0.1.0 // indirect
 	github.com/shibumi/go-pathspec v1.2.0 // indirect
-	github.com/sirupsen/logrus v1.9.0 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
 	golang.org/x/net v0.0.0-20211216030914-fe4d6282115f // indirect
 	golang.org/x/sys v0.0.0-20220715151400-c0bba94af5f8 // indirect
